@@ -14,25 +14,26 @@ public class Tank {
         this.speed = speed;
     }
 
-
-
-
-
     public String getColour() {
         return colour;
     }
+
     public void setColour(String colour) {
         this.colour = colour;
     }
+
     public int getCrew() {
         return crew;
     }
+
     public void setCrew(int crew) {
         this.crew = crew;
     }
+
     public int getSpeed() {
         return speed;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }

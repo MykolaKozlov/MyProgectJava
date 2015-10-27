@@ -1,5 +1,5 @@
 package FirstLesson.Task15;
-public class Fuck {
+public class Player {
         String colour;
         int veight;
         int width;

@@ -10,5 +10,4 @@ public class RunTank {
         tank.speed = 60;
         System.out.println("Tank colour = " + tank.colour + ";" + " Tank crew = " + tank.crew + ";" + " Tank speed = " + tank.speed+ ";");
     }
-
 }

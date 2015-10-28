@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="JavaProgrammer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JavaProgrammer_jar</output-path>
+    <root id="archive" name="JavaProgrammer.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/FirstLesson/Homework/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="JavaProgrammer" />
+    </root>
+  </artifact>
+</component>

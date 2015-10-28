@@ -1,4 +1,4 @@
-package FirstLesson.HomeworkFirstLesson.Enum;
+package FirstLesson.HomeworkFirstLesson;
 
 public class Car {
     private String carModel;

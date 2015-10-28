@@ -1,4 +1,4 @@
-package FirstLesson.HomeworkFirstLesson.Enum;
+package FirstLesson.HomeworkFirstLesson;
 public class CarLouncher {
     public static void main(String[] args) {
         Car car = new Car();

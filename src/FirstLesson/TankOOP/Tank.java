@@ -15,7 +15,7 @@ public class Tank {
 
 
     public Tank (ActionField actionField, BattleFirld battleFirld){
-        this(0, 512, 1, actionField, battleFirld);
+        this(384, 256, 1, actionField, battleFirld);
     }
 
     public Tank(int x, int y, int direction, ActionField actionField,

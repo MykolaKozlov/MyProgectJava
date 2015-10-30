@@ -1,58 +1,92 @@
 package FirstLesson.HomeworkFirstLesson.Library;
+
 public class Library {
 	private int alphabetSize = 25;
-	private int minimumNumberOfBooks = 10;
+	private int numberOfBooks = 10;
 	private String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-	Book [][] authorLibrary = new Book[alphabetSize][minimumNumberOfBooks];
-	Book [][] titleLibrary = new Book[alphabetSize][minimumNumberOfBooks];
-	Book [][] genreLibrary = new Book[alphabetSize][minimumNumberOfBooks];
+	public Book[][] authorLibrary = new Book[alphabetSize][numberOfBooks];
+	public Book[][] titleLibrary = new Book[alphabetSize][numberOfBooks];
+	public Book[][] genreLibrary = new Book[Genre.values().length][numberOfBooks];
 
 
-	public void addBookToLibrary (String author, String title, Genre genre){
+	public void addBookToLibrary(String author, String title, Genre genre) {
 		Book book = new Book();
 		book.setAuthor(author);
 		book.setTitle(title);
 		book.setGenre(genre);
 		sortBookByAuthor(book);
+		sortBookByTitle(book);
 
 
 	}
 
-	private int returnsPosition (String text){
+	private int returnsPositionAuthorAndTitle(String text) {
 		int position = 0;
-		for (int i = 0; i < alphabet.length(); i++){
-			if (text.toLowerCase().trim().charAt(0) == alphabet.charAt(i)){
+		for (int i = 0; i < alphabet.length(); i++) {
+			if (text.toLowerCase().trim().charAt(0) == alphabet.charAt(i)) {
 				position = i;
 			}
 		}
 		return position;
 	}
 
-	private void sortBookByAuthor (Book book){
-		for (int i = 0; i < authorLibrary[returnsPosition(book.getAuthor())].length; i++){
-			if (authorLibrary [returnsPosition(book.getAuthor())] [i] == null){
-				authorLibrary [returnsPosition(book.getAuthor())][i] = book;
+	private int returnsPositionGenre(Genre genre) {
+		int position = 0;
+		for (int i = 0; i < Genre.values().length; i++) {
+			if (Genre.values()[i] == genre) {
+				position = i;
+			}
+		}
+		return position;
+	}
+
+	private void sortBookByAuthor(Book book) {
+		for (int i = 0; i < authorLibrary[returnsPositionAuthorAndTitle(book.getAuthor())].length; i++) {
+			if (authorLibrary[returnsPositionAuthorAndTitle(book.getAuthor())][i] == null) {
+				authorLibrary[returnsPositionAuthorAndTitle(book.getAuthor())][i] = book;
 				return;
-			} if (i == authorLibrary [returnsPosition(book.getAuthor())].length - 1){
+			}
+			if (i == authorLibrary[returnsPositionAuthorAndTitle(book.getAuthor())].length - 1) {
 				System.out.println("You need increase size \"authorLibrary\"");
 			}
 		}
 	}
 
-	public void printAuthorLibrary (Book [][] authorLibrary){
-		for (int i = 0; i < authorLibrary.length; i++){
-			for (int j = 0; j < authorLibrary [i].length; j++){
-				if (authorLibrary[i][j] == null){
-					System.out.print("null   ");
-				} else {
-					System.out.print("Book author - " + authorLibrary[i][j].getAuthor() + "; " + "Book title - " + authorLibrary[i][j].getTitle() + "; " + "Book genre - " + authorLibrary[i][j].getGenre() + "   ");
-				}
+	private void sortBookByTitle(Book book) {
+		for (int i = 0; i < titleLibrary[returnsPositionAuthorAndTitle(book.getTitle())].length; i++) {
+			if (titleLibrary[returnsPositionAuthorAndTitle(book.getTitle())][i] == null) {
+				titleLibrary[returnsPositionAuthorAndTitle(book.getTitle())][i] = book;
+				return;
 			}
-			System.out.println();
-
+			if (i == titleLibrary[returnsPositionAuthorAndTitle(book.getTitle())].length - 1) {
+				System.out.println("You need increase size \"titleLibrary\"");
+			}
 		}
 	}
 
+	private void sortBookByGenre(Book book) {
+		for (int i = 0; i < genreLibrary; i++) {
+			if (genreLibrary[returnsPositionAuthorAndTitleAuthorAndTitle(book.getTitle())][i] == null) {
+				genreLibrary[returnsPositionAuthorAndTitleAuthorAndTitle(book.getTitle())][i] = book;
+				return;
+			}
+			if (i == genreLibrary[returnsPositionAuthorAndTitleAuthorAndTitle(book.getTitle())].length - 1) {
+				System.out.println("You need increase size \"titleLibrary\"");
+			}
+		}
+	}
 
+	public void printLibrary(Book[][] library) {
+		for (int i = 0; i < library.length; i++) {
+			for (int j = 0; j < library[i].length; j++) {
+				if (library[i][j] == null) {
+					System.out.print("null   ");
+				} else {
+					System.out.print("Book author - " + library[i][j].getAuthor() + "; " + "Book title - " + library[i][j].getTitle() + "; " + "Book genre - " + library[i][j].getGenre() + "   ");
+				}
+			}
+			System.out.println();
+		}
+	}
 }

@@ -4,6 +4,9 @@ public class Tank {
     int crew;
     int speed;
 
+    public Tank(){
+    }
+
     public Tank (String colour) {
         this.colour = colour;
     }

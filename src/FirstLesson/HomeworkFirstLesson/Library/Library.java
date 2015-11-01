@@ -1,7 +1,7 @@
 package FirstLesson.HomeworkFirstLesson.Library;
 
 public class Library {
-	private int alphabetSize = 25;
+	private int alphabetSize = 26;
 	private int numberOfBooks = 100;
 	private String alphabet = "abcdefghijklmnopqrstuvwxyz";
 	private int returnPosition = 0;

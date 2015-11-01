@@ -10,6 +10,7 @@ public class Demo {
 		library.addBookToLibrary("Nora Roberts", "Stars of Fortune", Genre.Romance);
 		library.addBookToLibrary("Tara Brown", "Born", Genre.Teens);
 		library.addBookToLibrary("Erin Leigh", "Roommates", Genre.Teens);
+		library.addBookToLibrary("Zinedine Zidane", "Biographies", Genre.Biographies);
 //		test find book by Author
 		library.findBookByAuthor("Erik Larson");
 //		test find book by Title

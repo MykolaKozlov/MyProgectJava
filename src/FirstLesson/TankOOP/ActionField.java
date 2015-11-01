@@ -200,27 +200,6 @@ public class ActionField extends JPanel {
     public void runTheGame() throws Exception {
         tank.clean();
 
-//		 tank.moveToQuadrant(1, 5);
-//		 tank.moveToQuadrant(2, 5);
-//		 tank.moveToQuadrant(5, 5);
-//		 tank.moveToQuadrant(1, 5);
-//		 tank.moveToQuadrant(5, 2);
-
-        // tank.fire();
-        // tank.move();
-        // tank.turn(3);
-        // tank.move();
-        // tank.move();
-        // tank.fire();
-        // tank.turn(2);
-        // tank.fire();
-        // tank.move();
-        // tank.turn(1);
-        // tank.fire();
-        // tank.move();
-        // tank.turn(4);
-        // tank.fire();
-        // tank.move();
     }
 
     private boolean processInterception() {

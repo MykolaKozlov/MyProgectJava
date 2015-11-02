@@ -1,9 +1,9 @@
 package SecondLesson.Chapter_1_Task_2;
 
 public class Tank {
-	Colour colour;
-	int crew;
-	int speed;
+	private Colour colour;
+	private int crew;
+	private int speed;
 
 	public Tank() {
 	}

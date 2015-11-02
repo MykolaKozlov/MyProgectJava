@@ -1,0 +1,6 @@
+package SecondLesson.Chapter_1_Task_7;
+
+public enum Colour {
+	BLACK, WHITE, BROWN, GREY, YELLOW, BLUE, GREEN, RED, ORANGE, PURPLE, PINK, VIOLET, DARK_BLUE, DARK_RED, DARK_ORANGE,
+	DARK_GREEN;
+}

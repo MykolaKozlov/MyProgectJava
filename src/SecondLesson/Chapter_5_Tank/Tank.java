@@ -4,16 +4,16 @@ public class Tank {
     private int speed = 10;
     private int x;
     private int y;
-    private int direction;
+    private Direction direction;
     private ActionField actionField;
     private BattleField battleField;
 
 
     public Tank(ActionField actionField, BattleField battleField) {
-        this(384, 256, 1, actionField, battleField);
+        this(384, 256, Direction.UP, actionField, battleField);
     }
 
-    public Tank(int x, int y, int direction, ActionField actionField,
+    public Tank(int x, int y, Direction direction, ActionField actionField,
                 BattleField battleField) {
         this.x = x;
         this.y = y;
@@ -42,7 +42,7 @@ public class Tank {
         return y;
     }
 
-    public int getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
@@ -54,7 +54,7 @@ public class Tank {
         return battleField;
     }
 
-    public void turn(int direction) throws Exception {
+    public void turn(Direction direction) throws Exception {
         this.direction = direction;
         actionField.processTurn(this);
     }
@@ -77,28 +77,28 @@ public class Tank {
         int y = Integer.parseInt(coordinates.substring(separator + 1));
 
         if (this.y < x && x >= actionField.getMinimumFieldSize() && x <= actionField.getMaximumFieldSize()) {
-            turn(actionField.getMoveDown());
+            turn(Direction.DOWN);
             while (this.y != x) {
                 move();
             }
         }
 
         if (this.y > x && x >= actionField.getMinimumFieldSize() && x <= actionField.getMaximumFieldSize()) {
-            turn(actionField.getMoveUp());
+            turn(Direction.UP);
             while (this.y != x) {
                 move();
             }
         }
 
         if (this.x < y && y >= actionField.getMinimumFieldSize() && y <= actionField.getMaximumFieldSize()) {
-            turn(actionField.getMoveRight());
+            turn(Direction.RIGHT);
             while (this.x != y) {
                 move();
             }
         }
 
         if (this.x > y && y >= actionField.getMinimumFieldSize() && y <= actionField.getMaximumFieldSize()) {
-            turn(actionField.getMoveLeft());
+            turn(Direction.LEFT);
             while (this.x != y) {
                 move();
             }

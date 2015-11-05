@@ -168,4 +168,9 @@ public class Tank {
         actionField.fireLeft();
         System.out.println("GAME OVER!!!");
     }
+
+    public void destroy (){
+        x = -100;
+        y = -100;
+    }
 }

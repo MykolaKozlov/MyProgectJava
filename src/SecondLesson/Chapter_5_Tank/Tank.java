@@ -9,8 +9,7 @@ public class Tank {
     private BattleField battleField;
 
 
-
-    public Tank (ActionField actionField, BattleField battleField){
+    public Tank(ActionField actionField, BattleField battleField) {
         this(384, 256, 1, actionField, battleField);
     }
 
@@ -23,11 +22,11 @@ public class Tank {
         this.battleField = battleField;
     }
 
-    public void updateX (int x){
+    public void updateX(int x) {
         this.x += x;
     }
 
-    public void updateY (int y){
+    public void updateY(int y) {
         this.y += y;
     }
 
@@ -55,7 +54,7 @@ public class Tank {
         return battleField;
     }
 
-    public void turn(int direction) throws Exception{
+    public void turn(int direction) throws Exception {
         this.direction = direction;
         actionField.processTurn(this);
     }
@@ -108,7 +107,7 @@ public class Tank {
 
     public int random() {
         int rand = 0;
-        int[] array = { 1, 2, 3, 4 };
+        int[] array = {1, 2, 3, 4};
         long time = System.currentTimeMillis();
         String str = Long.toString(time);
         char lostSimbol = str.charAt(str.length() - 1);
@@ -169,7 +168,7 @@ public class Tank {
         System.out.println("GAME OVER!!!");
     }
 
-    public void destroy (){
+    public void destroy() {
         x = -100;
         y = -100;
     }

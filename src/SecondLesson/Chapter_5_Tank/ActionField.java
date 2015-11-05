@@ -152,7 +152,8 @@ public class ActionField extends JPanel {
                     tank.fire();
                 }
             }
-        }return tankV;
+        }
+        return tankV;
     }
 
     public int fireRight() throws Exception {
@@ -166,7 +167,8 @@ public class ActionField extends JPanel {
                     tank.fire();
                 }
             }
-        }return tankH;
+        }
+        return tankH;
     }
 
     public int fireUp() throws Exception {
@@ -174,13 +176,14 @@ public class ActionField extends JPanel {
         int tankV = Integer.valueOf(str.substring(0, 1));
         int tankH = Integer.valueOf(str.substring(2, str.length()));
         tank.turn(moveUp);
-        for (int idx =  tankV; idx >= 0; idx--) {
-            for (int j =  tankH; j <  tankH + 1; j++) {
+        for (int idx = tankV; idx >= 0; idx--) {
+            for (int j = tankH; j < tankH + 1; j++) {
                 if (battleFirld.scanQuadrant(idx, j) == "B") {
                     tank.fire();
                 }
             }
-        }return tankV;
+        }
+        return tankV;
     }
 
     public int fireLeft() throws Exception {
@@ -194,7 +197,8 @@ public class ActionField extends JPanel {
                     tank.fire();
                 }
             }
-        }return tankH;
+        }
+        return tankH;
     }
 
     public void runTheGame() throws Exception {

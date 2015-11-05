@@ -1,35 +1,36 @@
 package SecondLesson.Chapter_5_Tank;
+
 public class BattleField {
     private int BF_WIDTH = 576;
     private int BF_HEIGHT = 576;
-    private String[][] battleField = { { " ", "B", "B", " ", "B", "B", " ", "B", " " },
-            { "B", " ", "B", " ", " ", "B", " ", " ", "B" },
-            { " ", " ", " ", " ", " ", "B", " ", "B", " " },
-            { " ", " ", "B", " ", " ", "B", "B", "B", " " },
-            { "B", " ", " ", " ", " ", "B", " ", " ", " " },
-            { " ", " ", " ", "B", " ", "B", " ", "B", " " },
-            { "B", " ", "B", " ", " ", "B", " ", " ", " " },
-            { " ", "B", " ", " ", " ", "B", " ", " ", " " },
-            { " ", "B", " ", "B", " ", "B", " ", " ", " " } };
+    private String[][] battleField = {{" ", "B", "B", " ", "B", "B", " ", "B", " "},
+            {"B", " ", "B", " ", " ", "B", " ", " ", "B"},
+            {" ", " ", " ", " ", " ", "B", " ", "B", " "},
+            {" ", " ", "B", " ", " ", "B", "B", "B", " "},
+            {"B", " ", " ", " ", " ", "B", " ", " ", " "},
+            {" ", " ", " ", "B", " ", "B", " ", "B", " "},
+            {"B", " ", "B", " ", " ", "B", " ", " ", " "},
+            {" ", "B", " ", " ", " ", "B", " ", " ", " "},
+            {" ", "B", " ", "B", " ", "B", " ", " ", " "}};
 
 
-    public String scanQuadrant (int v, int h){
-        return battleField [v][h];
+    public String scanQuadrant(int v, int h) {
+        return battleField[v][h];
     }
 
-    public void updateQuadrant (int v, int h, String constant){
-        battleField [v][h] = constant;
+    public void updateQuadrant(int v, int h, String constant) {
+        battleField[v][h] = constant;
     }
 
-    public int getDimentionX(){
+    public int getDimentionX() {
         return battleField.length;
     }
 
-    public int getDimentionY(){
+    public int getDimentionY() {
         return battleField.length;
     }
 
-    public BattleField(){
+    public BattleField() {
 
     }
 

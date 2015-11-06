@@ -1,13 +1,12 @@
 package SecondLesson.Chapter_5_Tank_New;
 
 public class Tank {
-    private int speed = 10;
+    protected int speed = 10;
     private int x;
     private int y;
     private Direction direction;
     private ActionField actionField;
     private BattleField battleField;
-
 
     public Tank(ActionField actionField, BattleField battleField) {
         this(384, 256, Direction.UP, actionField, battleField);

@@ -1,4 +1,4 @@
-package SecondLesson.HomeWork;
+package SecondLesson.HomeWork.MotoShop;
 
 public class Purchase {
     private double price;

@@ -12,6 +12,7 @@ public class Motorcycle {
     private int fuelTank;
     private int power;
     private double price;
+    private int quantity;
 
     public Motorcycle() {
 
@@ -59,6 +60,14 @@ public class Motorcycle {
 
     public int getPower() {
         return power;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public void setPrice(double price) {

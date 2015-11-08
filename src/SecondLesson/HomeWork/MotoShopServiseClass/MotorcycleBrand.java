@@ -1,5 +1,15 @@
 package SecondLesson.HomeWork.MotoShopServiseClass;
 
 public enum MotorcycleBrand {
-    HONDA, BMW, DUCATI, HARLEY_DAVIDSON, JAVA, KAWASAKI, KTM, SUZUKI, YAMAHA;
+    HONDA(0), BMW(1), DUCATI(2), HARLEY_DAVIDSON(3), JAVA(4), KAWASAKI(5), KTM(6), SUZUKI(7), YAMAHA(8);
+
+    private int id;
+
+    private MotorcycleBrand(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

@@ -8,4 +8,8 @@ public enum MotorcycleColour {
     private MotorcycleColour(int id) {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

@@ -8,4 +8,8 @@ public enum MotorcycleCategory {
     private MotorcycleCategory(int id) {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

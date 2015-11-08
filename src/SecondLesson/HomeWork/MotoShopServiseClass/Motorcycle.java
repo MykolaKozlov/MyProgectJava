@@ -4,13 +4,13 @@ public class Motorcycle {
     private MotorcycleBrand motorcycleBrand;
     private MotorcycleCategory motorcycleCategory;
     private MotorcycleColour motorcycleColour;
-    private double weight;
-    private int length;
-    private String number;
-    private int engineCapacity;
-    private int maxSpeed;
-    private int fuelTank;
-    private int power;
+//    private double weight;
+//    private int length;
+//    private String number;
+//    private int engineCapacity;
+//    private int maxSpeed;
+//    private int fuelTank;
+//    private int power;
     private double price;
     private int quantity;
 
@@ -34,33 +34,33 @@ public class Motorcycle {
         return motorcycleColour;
     }
 
-    public double getWeight() {
-        return weight;
-    }
+//    public double getWeight() {
+//        return weight;
+//    }
+//
+//    public int getLength() {
+//        return length;
+//    }
 
-    public int getLength() {
-        return length;
-    }
+//    public String getNumber() {
+//        return number;
+//    }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public int getEngineCapacity() {
-        return engineCapacity;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public int getFuelTank() {
-        return fuelTank;
-    }
-
-    public int getPower() {
-        return power;
-    }
+//    public int getEngineCapacity() {
+//        return engineCapacity;
+//    }
+//
+//    public int getMaxSpeed() {
+//        return maxSpeed;
+//    }
+//
+//    public int getFuelTank() {
+//        return fuelTank;
+//    }
+//
+//    public int getPower() {
+//        return power;
+//    }
 
     public int getQuantity() {
         return quantity;
@@ -86,31 +86,31 @@ public class Motorcycle {
         this.motorcycleColour = motorcycleColour;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
+//    public void setWeight(double weight) {
+//        this.weight = weight;
+//    }
+//
+//    public void setLength(int length) {
+//        this.length = length;
+//    }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
+//    public void setNumber(String number) {
+//        this.number = number;
+//    }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public void setEngineCapacity(int engineCapacity) {
-        this.engineCapacity = engineCapacity;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public void setFuelTank(int fuelTank) {
-        this.fuelTank = fuelTank;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
-    }
+//    public void setEngineCapacity(int engineCapacity) {
+//        this.engineCapacity = engineCapacity;
+//    }
+//
+//    public void setMaxSpeed(int maxSpeed) {
+//        this.maxSpeed = maxSpeed;
+//    }
+//
+//    public void setFuelTank(int fuelTank) {
+//        this.fuelTank = fuelTank;
+//    }
+//
+//    public void setPower(int power) {
+//        this.power = power;
+//    }
 }

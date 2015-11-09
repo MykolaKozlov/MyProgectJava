@@ -4,6 +4,8 @@ public class Purchase extends Client{
     private double price;
     private Motorcycle motorcycle;
     private String date;
+    private int quantity;
+
 
     public Purchase(){
 
@@ -13,6 +15,14 @@ public class Purchase extends Client{
         this.price = price;
         this.motorcycle = motorcycle;
         this.date = date;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {

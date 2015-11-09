@@ -1,8 +1,7 @@
 package SecondLesson.HomeWork.MotoShopServiseClass;
 
-public class Purchase {
+public class Purchase extends Client{
     private double price;
-    private Client client;
     private Motorcycle motorcycle;
     private String date;
 
@@ -10,19 +9,14 @@ public class Purchase {
 
     }
 
-    public Purchase(double price, Client client, Motorcycle motorcycle, String date){
+    public Purchase(double price, Motorcycle motorcycle, String date){
         this.price = price;
-        this.client = client;
         this.motorcycle = motorcycle;
         this.date = date;
     }
 
     public double getPrice() {
         return price;
-    }
-
-    public Client getClient() {
-        return client;
     }
 
     public Motorcycle getMotorcycle() {
@@ -35,10 +29,6 @@ public class Purchase {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public void setMotorcycle(Motorcycle motorcycle) {

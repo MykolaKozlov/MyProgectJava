@@ -6,25 +6,42 @@ public class Motorcycle {
     private MotorcycleColour motorcycleColour;
     private double price;
     private int quantity;
+    private String productNumber;
 
     public Motorcycle() {
 
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public MotorcycleBrand getMotorcycleBrand() {
         return motorcycleBrand;
     }
 
+    public void setMotorcycleBrand(MotorcycleBrand motorcycleBrand) {
+        this.motorcycleBrand = motorcycleBrand;
+    }
+
     public MotorcycleCategory getMotorcycleCategory() {
         return motorcycleCategory;
     }
 
+    public void setMotorcycleCategory(MotorcycleCategory motorcycleCategory) {
+        this.motorcycleCategory = motorcycleCategory;
+    }
+
     public MotorcycleColour getMotorcycleColour() {
         return motorcycleColour;
+    }
+
+    public void setMotorcycleColour(MotorcycleColour motorcycleColour) {
+        this.motorcycleColour = motorcycleColour;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQuantity() {
@@ -35,19 +52,11 @@ public class Motorcycle {
         this.quantity = quantity;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public String getProductNumber() {
+        return productNumber;
     }
 
-    public void setMotorcycleBrand(MotorcycleBrand motorcycleBrand) {
-        this.motorcycleBrand = motorcycleBrand;
-    }
-
-    public void setMotorcycleCategory(MotorcycleCategory motorcycleCategory) {
-        this.motorcycleCategory = motorcycleCategory;
-    }
-
-    public void setMotorcycleColour(MotorcycleColour motorcycleColour) {
-        this.motorcycleColour = motorcycleColour;
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
     }
 }

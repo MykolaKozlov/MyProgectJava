@@ -1,9 +1,7 @@
 package SecondLesson.HomeWork.MotoShopServiseClass;
 
 public class Client {
-    private String name;
-    private int age;
-    private Sex sex;
+    private String fullName;
     private String telephoneNumber;
     private String adress;
 
@@ -12,40 +10,24 @@ public class Client {
 
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public Sex getSex() {
-        return sex;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getAdress() {
+        return adress;
     }
 
     public void setAdress(String adress) {

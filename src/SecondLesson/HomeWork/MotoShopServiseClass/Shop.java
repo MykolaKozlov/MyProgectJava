@@ -103,13 +103,13 @@ public class Shop {
         return motoShop[Integer.parseInt(productNumber.substring(0, productNumber.indexOf("a")))][Integer.parseInt(productNumber.substring(productNumber.indexOf("a") + 1, productNumber.indexOf("b")))][Integer.parseInt(productNumber.substring(productNumber.indexOf("b") + 1, productNumber.indexOf("c")))];
     }
 
-    private void findDateAdress(String date, Purchase purchase){
-        for (int i = 0; i <= purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length; i++){
-            if (purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))][i] == null){
+    private void findDateAdress(String date, Purchase purchase) {
+        for (int i = 0; i <= purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length; i++) {
+            if (purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))][i] == null) {
                 purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))][i] = purchase;
                 return;
             }
-            if (i == purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length - 1){
+            if (i == purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length - 1) {
                 System.out.println("You need increase size \"purchaseArchive\"");
                 break;
             }
@@ -127,5 +127,24 @@ public class Shop {
         purchase.setTelephoneNumber(telephoneNumber);
         findDateAdress(date, purchase);
         findGoodsByProductNumber(productNumber).setQuantity(findGoodsByProductNumber(productNumber).getQuantity() - quantity);
+    }
+
+    private Purchase findDayOnPurchaseArchive(String date, int counter) {
+        return purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))][counter];
+    }
+
+    public void transactionsDuringTheDay(String date) {
+        int transactions = 0;
+        int money = 0;
+        int purchases = 0;
+        for (int i = 0; i < purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length; i++) {
+            if (findDayOnPurchaseArchive(date, i) != null) {
+                System.out.println("№" + (i + 1) + " " + findDayOnPurchaseArchive(date, i).getFullName() + " " + findDayOnPurchaseArchive(date, i).getMotorcycle().getMotorcycleBrand() + " " + findDayOnPurchaseArchive(date, i).getPrice() + " " + findDayOnPurchaseArchive(date, i).getQuantity());
+                transactions += i;
+                money += findDayOnPurchaseArchive(date, i).getPrice() * findDayOnPurchaseArchive(date, i).getQuantity();
+                purchases += findDayOnPurchaseArchive(date, i).getQuantity();
+            }
+        }
+        System.out.println("Transactions: " + transactions + ";  Money: " + money + "$; Purchases: " + purchases + ".");
     }
 }

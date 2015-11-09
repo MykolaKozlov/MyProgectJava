@@ -49,10 +49,10 @@ public class Shop {
                 if (j == MotorcycleCategory.values().length) {
                     break;
                 } else {
-                    System.out.println("####################" + MotorcycleCategory.values()[j] + "####################");
+                    System.out.println("#################### CATEGORY: " + MotorcycleCategory.values()[j] + " ####################");
                 }
                 int position = 0;
-                for (int k = 0; k <= motoShop[i][j].length; k++) {
+                for (int k = 0; k < motoShop[i][j].length; k++) {
                     if (motoShop[i][j][k] == null && position == 0) {
                         System.out.println("In this category do not have products");
                         break;
@@ -65,8 +65,34 @@ public class Shop {
                 }
             }
         }
-
     }
 
-
+    public void showCatalogOfGoods() {
+        for (int i = 0; i < motoShop.length; i++) {
+            if (i == MotorcycleBrand.values().length) {
+                break;
+            } else {
+                System.out.println("#################### BRAND: " + MotorcycleBrand.values()[i] + " ####################");
+            }
+            for (int j = 0; j < motoShop[MotorcycleCategory.values().length].length; j++) {
+                if (j == MotorcycleCategory.values().length) {
+                    break;
+                } else {
+                    System.out.println("CATEGORY: " + MotorcycleCategory.values()[j]);
+                }
+                int position = 0;
+                for (int k = 0; k < motoShop[i][j].length; k++) {
+                    if (motoShop[i][j][k] == null && position == 0) {
+                        System.out.println("In this category do not have products");
+                        break;
+                    } else if (motoShop[i][j][k] == null) {
+                        break;
+                    } else {
+                        System.out.println("BRAND: " + motoShop[i][j][k].getMotorcycleBrand() + "; PRICE: " + motoShop[i][j][k].getPrice() + "$; QUANTITY: " + motoShop[i][j][k].getQuantity() + ".");
+                        position = motoShop.length;
+                    }
+                }
+            }
+        }
+    }
 }

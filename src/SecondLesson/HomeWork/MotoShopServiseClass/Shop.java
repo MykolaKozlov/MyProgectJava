@@ -103,7 +103,7 @@ public class Shop {
         return motoShop[Integer.parseInt(productNumber.substring(0, productNumber.indexOf("a")))][Integer.parseInt(productNumber.substring(productNumber.indexOf("a") + 1, productNumber.indexOf("b")))][Integer.parseInt(productNumber.substring(productNumber.indexOf("b") + 1, productNumber.indexOf("c")))];
     }
 
-    public void findDateAdress(String date, Purchase purchase){
+    private void findDateAdress(String date, Purchase purchase){
         for (int i = 0; i <= purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length; i++){
             if (purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))][i] == null){
                 purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))][i] = purchase;

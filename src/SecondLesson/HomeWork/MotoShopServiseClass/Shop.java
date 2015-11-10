@@ -1,11 +1,11 @@
 package SecondLesson.HomeWork.MotoShopServiseClass;
 
 public class Shop {
-    private int numberOfMonth = 12;
-    private int numberOfDayInMonth = 31;
+    private int numberOfMonth = 13;
+    private int numberOfDayInMonth = 32;
     private int numberOfGoods = 100;
     public Motorcycle[][][] motoShop = new Motorcycle[MotorcycleBrand.values().length][MotorcycleCategory.values().length][numberOfGoods];
-    public Purchase[][][] purchaseArchive = new Purchase[numberOfMonth + 1][numberOfDayInMonth + 1][numberOfGoods];
+    public Purchase[][][] purchaseArchive = new Purchase[numberOfMonth][numberOfDayInMonth][numberOfGoods];
 
     public void addMotorcycle(MotorcycleBrand motorcycleBrand, MotorcycleCategory motorcycleCategory, MotorcycleColour motorcycleColour, double price, int quantity) {
         Motorcycle motorcycle = new Motorcycle();
@@ -139,6 +139,7 @@ public class Shop {
         int purchases = 0;
         for (int i = 0; i < purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length; i++) {
             if (findDayOnPurchaseArchive(date, i) != null) {
+                transactions = 1;
                 System.out.println("№" + (i + 1) + " " + findDayOnPurchaseArchive(date, i).getFullName() + " " + findDayOnPurchaseArchive(date, i).getMotorcycle().getMotorcycleBrand() + " " + findDayOnPurchaseArchive(date, i).getPrice() + " " + findDayOnPurchaseArchive(date, i).getQuantity());
                 transactions += i;
                 money += findDayOnPurchaseArchive(date, i).getPrice() * findDayOnPurchaseArchive(date, i).getQuantity();
@@ -146,5 +147,58 @@ public class Shop {
             }
         }
         System.out.println("Transactions: " + transactions + ";  Money: " + money + "$; Purchases: " + purchases + ".");
+    }
+
+    public void transactionsDuringPeriod(String firstdate, String lastDate) {
+        int monthFirstdate = Integer.parseInt(firstdate.substring(0, firstdate.indexOf(";")));
+        int dayFirstdate = Integer.parseInt(firstdate.substring(3, firstdate.length()));
+        int monthLastDate = Integer.parseInt(lastDate.substring(0, lastDate.indexOf(";")));
+        int dayLastDate = Integer.parseInt(lastDate.substring(3, lastDate.length()));
+        if (monthFirstdate == monthLastDate) {
+            for (int i = monthFirstdate; i <= monthLastDate; i++) {
+                for (int j = dayFirstdate; j <= dayLastDate; j++) {
+                    for (int k = 0; k < purchaseArchive[i][j].length; k++) {
+                        if (purchaseArchive[i][j][k] == null) {
+                            System.out.println("Month:" + "(" + monthFirstdate + ")" + " Day:" + "(" + j + ")" + ": " + k + "-transactions");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (monthFirstdate != monthLastDate) {
+            for (int i = monthFirstdate, g = 0; i <= monthLastDate; i++, g++) {
+                if (i != monthLastDate && g == 0) {
+                    for (int j = dayFirstdate; j < numberOfDayInMonth; j++) {
+                        for (int k = 0; k < purchaseArchive[i][j].length; k++) {
+                            if (purchaseArchive[i][j][k] == null) {
+                                System.out.println("Month:" + "(" + monthFirstdate + ")" + " Day:" + "(" + j + ")" + ": " + k + "-transactions");
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (i != monthLastDate && g != 0) {
+                    for (int j = 1; j < numberOfDayInMonth; j++) {
+                        for (int k = 0; k < purchaseArchive[i][j].length; k++) {
+                            if (purchaseArchive[i][j][k] == null) {
+                                System.out.println("Month:" + "(" + i + ")" + " Day:" + "(" + j + ")" + ": " + k + "-transactions");
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (i == monthLastDate) {
+                    for (int j = 1; j <= dayLastDate; j++) {
+                        for (int k = 0; k < purchaseArchive[i][j].length; k++) {
+                            if (purchaseArchive[i][j][k] == null) {
+                                System.out.println("Month:" + "(" + monthLastDate + ")" + " Day:" + "(" + j + ")" + ": " + k + "-transactions");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

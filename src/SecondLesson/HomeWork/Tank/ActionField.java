@@ -17,7 +17,7 @@ public class ActionField extends JPanel {
     private Agressor agressor;
 
     private String randomPosition(){
-        String [] position = {"0_0", "64_128", "320_192"};
+        String [] position = {"0_0", "64_128", "384_448"};
         Random random = new Random();
         return position [random.nextInt(position.length)];
     }

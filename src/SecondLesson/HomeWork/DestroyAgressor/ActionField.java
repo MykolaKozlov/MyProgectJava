@@ -17,8 +17,8 @@ public class ActionField extends JPanel {
     private Tiger tiger;
 
     private String randomPosition() {
-//        String[] position = {"0_0", "64_128", "384_448"};
-        String[] position = {"0_0"};
+        String[] position = {"0_0", "64_128", "384_448"};
+//        String[] position = {"0_0"};
         Random random = new Random();
         return position[random.nextInt(position.length)];
     }
@@ -195,6 +195,7 @@ public class ActionField extends JPanel {
 
     public void runTheGame() throws Exception {
 //        tank.clean();
+        tiger = new Tiger(0, 0, Direction.LEFT, this, battleField);
         tank.fire();
         tank.fire();
         tank.fire();
@@ -203,7 +204,7 @@ public class ActionField extends JPanel {
         tank.fire();
     }
 
-    private boolean processInterception() {
+    private boolean processInterception() throws InterruptedException {
         String bulletCoordinate = getQuadrantXY(bullet.getX(), bullet.getY());
         String tigerCoordinate = getQuadrantXY(tiger.getX(), tiger.getY());
         int bulletXPosition = Integer.valueOf(bulletCoordinate.substring(0, bulletCoordinate.indexOf("_")));
@@ -222,6 +223,8 @@ public class ActionField extends JPanel {
         }
         if (bulletXPosition == agressorXPosition && bulletYPosition == agressorYPosition) {
             tiger.destroy();
+            Thread.sleep(3000);
+            tiger = new Tiger(Integer.parseInt(position.substring(0, position.indexOf("_"))), Integer.parseInt(position.substring(position.lastIndexOf("_") + 1, position.length())), Direction.LEFT, this, battleField);
             return true;
         }
         return false;
@@ -238,7 +241,7 @@ public class ActionField extends JPanel {
     public ActionField() throws Exception {
         battleField = new BattleField();
         tank = new Tank(this, battleField);
-        tiger = new Tiger(Integer.parseInt(position.substring(0, position.indexOf("_"))), Integer.parseInt(position.substring(position.lastIndexOf("_") + 1, position.length())), Direction.LEFT, this, battleField);
+//        tiger = new Tiger(Integer.parseInt(position.substring(0, position.indexOf("_"))), Integer.parseInt(position.substring(position.lastIndexOf("_") + 1, position.length())), Direction.LEFT, this, battleField);
         bullet = new Bullet(-100, -100, Direction.STOP);
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
         frame.setLocation(750, 150);

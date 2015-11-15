@@ -16,8 +16,11 @@ public class Demo {
             System.out.println(array[6]);
         } catch (ArrayIndexOutOfBoundsException ex) {
             System.err.println("Such an element in the array does not exist!!!");
+        } finally {
+            System.out.println("Exit program!");
         }
     }
+
 
     public static void adult(int age) throws MyPersonalExeption {
         if (age < 0) {

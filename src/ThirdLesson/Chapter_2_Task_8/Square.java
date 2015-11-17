@@ -2,7 +2,7 @@ package ThirdLesson.Chapter_2_Task_8;
 
 import java.awt.*;
 
-public class Square extends Shape {
+public class Square extends Rectangle {
     public Square(){
         System.out.println("Square");
     }

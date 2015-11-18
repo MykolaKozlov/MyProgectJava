@@ -5,12 +5,12 @@ import java.awt.*;
 
 public class ShapesTemplate extends JPanel {
 
-    private AbstractShape[] abstractShapes;
+    private Drawable[] drawables;
 
-    public ShapesTemplate(AbstractShape[] abstractShapes) {
-        this.abstractShapes = abstractShapes;
-        if (abstractShapes == null || abstractShapes.length < 1) {
-            this.abstractShapes = new AbstractShape[0];
+    public ShapesTemplate(Drawable[] drawables) {
+        this.drawables = drawables;
+        if (drawables == null || drawables.length < 1) {
+            this.drawables = new Drawable[0];
         }
 
         JFrame frame = new JFrame("DAY 6, 2D Graphics");
@@ -26,7 +26,7 @@ public class ShapesTemplate extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        for (AbstractShape s : abstractShapes) {
+        for (Drawable s : drawables) {
             s.draw(g);
         }
     }

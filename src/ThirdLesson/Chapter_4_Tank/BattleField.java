@@ -55,6 +55,10 @@ public class BattleField implements Drowable {
         return battleField;
     }
 
+    private String getQuadrant(int v, int h) {
+        return (v - 1) * 64 + "_" + (h - 1) * 64;
+    }
+
     @Override
     public void draw(Graphics graphics) {
         int i = 0;
@@ -79,7 +83,7 @@ public class BattleField implements Drowable {
         for (int j = 0; j < getDimentionY(); j++) {
             for (int k = 0; k < getDimentionX(); k++) {
                 if (scanQuadrant(j, k).equals("B")) {
-                    String coordinates = actionField.getQuadrant(j + 1, k + 1);
+                    String coordinates = getQuadrant(j + 1, k + 1);
                     int separator = coordinates.indexOf("_");
                     int y = Integer.parseInt(coordinates
                             .substring(0, separator));

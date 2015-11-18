@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Shape {
     public Shape() {
-        System.out.println("Shape");
+        System.out.println("AbstractShape");
     }
 
     public void draw(Graphics graphics) {

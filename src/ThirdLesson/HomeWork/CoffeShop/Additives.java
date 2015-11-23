@@ -1,7 +1,7 @@
 package ThirdLesson.HomeWork.CoffeShop;
 
 public enum Additives {
-    NONE(0), CINNAMON(0.3), CHOCOLATE(0.4);
+    NONE(0), CINNAMON(0.3), CHOCOLATE(0.4), HOT_CHOCOLATE(0.5), CREAM(0.3);
 
     private double id;
 

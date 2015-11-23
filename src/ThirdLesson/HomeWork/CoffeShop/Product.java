@@ -1,38 +1,48 @@
 package ThirdLesson.HomeWork.CoffeShop;
 
-public abstract class Product implements AddIngredients {
+public class Product {
+
+    private String name;
+    private int quantiti;
+    private double price;
 
     public Product() {
 
     }
 
-    @Override
-    public double addCupSize(CupSize cupSize) {
-        return cupSize.getId();
+    public Product(String name, int quantiti, double price) {
+        this.name = name;
+        this.quantiti = quantiti;
+        this.price = price;
     }
 
-    @Override
-    public double addSugar(int sugar) {
-        return 0;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public double addCoffe(CoffeeSort coffeeSort) {
-        return 0;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public double addTea(TeaSort teaSort) {
-        return 0;
+    public int getQuantiti() {
+        return quantiti;
     }
 
-    @Override
-    public double addMilk(double milk) {
-        return 0;
+    public void setQuantiti(int quantiti) {
+        this.quantiti = quantiti;
     }
 
-    @Override
-    public double addNewProduck(String productName, double productPrice, int quantity) {
-        return 0;
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void showProduct(Product product){
+        System.out.println("Name: " + getName());
+        System.out.println("Quantiti: " + getQuantiti());
+        System.out.println("Price: " + getPrice());
     }
 }

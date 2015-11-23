@@ -1,11 +1,11 @@
 package ThirdLesson.HomeWork.CoffeShop;
 
-public enum TeaSort {
-    GREEN_TEA(0.1), BLACK_TEA(0.2), BERHAMOT_TEA(0.3);
+public enum CoffeeSort {
+    ARABICA_SANTOS(0.1), ARABICA_TARRUSA(0.1), ARABICA_MOCCA(0.2), ARABICA_KONA(0.2), ARABICA_KHARAR(0.3);
 
     private double id;
 
-    private TeaSort(double id) {
+    private CoffeeSort(double id) {
         this.id = id;
     }
 

@@ -1,11 +1,11 @@
 package ThirdLesson.HomeWork.CoffeShop;
 
-public enum TeaSort {
-    GREEN_TEA(0.1), BLACK_TEA(0.2), BERHAMOT_TEA(0.3);
+public enum SugarQuantiti {
+    NONE(0), ONE(0.1), TWO(0.2), THREE(0.3), FOUR(0.4), FIVE(0.5);
 
     private double id;
 
-    private TeaSort(double id) {
+    private SugarQuantiti(double id) {
         this.id = id;
     }
 

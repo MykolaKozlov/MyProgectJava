@@ -2,16 +2,16 @@ package ThirdLesson.HomeWork.CoffeShop;
 
 public interface AddIngredients {
 
-    public double addWaterSize(AddWaterSize addWaterSize);
+    public double addCupSize(CupSize cupSize);
 
     public double addSugar(int sugar);
 
-    public double addCoffe(CoffeSort coffeSort);
+    public double addCoffe(CoffeeSort coffeeSort);
 
     public double addTea(TeaSort teaSort);
 
     public double addMilk(double milk);
 
-    public double addNewProduck (String productName, double productPrice, int quantity);
+    public double addNewProduck(String productName, double productPrice, int quantity);
 
 }

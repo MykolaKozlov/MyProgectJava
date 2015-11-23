@@ -1,14 +1,14 @@
 package ThirdLesson.HomeWork.CoffeShop;
 
-public class Product implements AddIngredients {
+public abstract class Product implements AddIngredients {
 
     public Product() {
 
     }
 
     @Override
-    public double addWaterSize(AddWaterSize addWaterSize) {
-        return 0;
+    public double addCupSize(CupSize cupSize) {
+        return cupSize.getId();
     }
 
     @Override
@@ -17,7 +17,7 @@ public class Product implements AddIngredients {
     }
 
     @Override
-    public double addCoffe(CoffeSort coffeSort) {
+    public double addCoffe(CoffeeSort coffeeSort) {
         return 0;
     }
 

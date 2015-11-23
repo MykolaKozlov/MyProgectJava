@@ -8,6 +8,6 @@ public class RunTank {
         tank.colour = "blue";
         tank.crew = 10;
         tank.speed = 60;
-        System.out.println("Tank colour = " + tank.colour + ";" + " Tank crew = " + tank.crew + ";" + " Tank speed = " + tank.speed+ ";");
+        System.out.println("AbstractTank colour = " + tank.colour + ";" + " AbstractTank crew = " + tank.crew + ";" + " AbstractTank speed = " + tank.speed+ ";");
     }
 }

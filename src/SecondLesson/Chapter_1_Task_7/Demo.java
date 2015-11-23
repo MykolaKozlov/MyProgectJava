@@ -24,7 +24,7 @@ public class Demo {
 		tank.setColour(Colour.PINK);
 		tank.setSpeed(100);
 		tank.setCrew(10);
-		tank.setName("Tank");
+		tank.setName("AbstractTank");
 
 //		System.out.println("BT7 colour = " + bt7.getColour() + "; " + "BT7 crew = " + bt7.getCrew() + "; " + "BT7 speed = " + bt7.getSpeed() + ";");
 //

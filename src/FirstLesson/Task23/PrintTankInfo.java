@@ -14,7 +14,7 @@ public class PrintTankInfo {
             if (tank[i] == null) {
                 System.out.println("null");
             } else {
-                System.out.println("Tank colour = " + tank[i].getColour() + "; " + "Tank crew = " + tank[i].getCrew() + "; " + "Tank speed = " + tank[i].getSpeed() + ";");
+                System.out.println("AbstractTank colour = " + tank[i].getColour() + "; " + "AbstractTank crew = " + tank[i].getCrew() + "; " + "AbstractTank speed = " + tank[i].getSpeed() + ";");
             }
         }
 

@@ -58,7 +58,7 @@ public class Tank {
 
 	@Override
 	public String toString() {
-		return "Tank{" +
+		return "AbstractTank{" +
 				"colour=" + colour +
 				", crew=" + crew +
 				", speed=" + speed +

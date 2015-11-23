@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 public class CoffeeWithMilk extends Product {
 
     public CoffeeWithMilk(CoffeeSort coffeeSort, CupSize cupSize, SugarQuantiti sugarQuantiti, Milk milk) {
-        System.out.println("#####Black Coffee Ingredients#####");
+        System.out.println("#####Coffee With Milk Ingredients#####");
         System.out.println("Cup size: " + cupSize);
         System.out.println("Sort of coffee: " + coffeeSort);
         System.out.println("Quantiti of sugar: " + sugarQuantiti);

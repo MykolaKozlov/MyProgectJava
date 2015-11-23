@@ -11,5 +11,6 @@ public class Demo {
         product = new Mokachino(CoffeeSort.ARABICA_TARRUSA, CupSize.BIG_SIZE, SugarQuantiti.TWO, Milk.MILK, Additives.HOT_CHOCOLATE, Additives.CREAM);
         product = new BlackTea(TeaSort.BLACK_TEA, CupSize.BIG_SIZE, SugarQuantiti.THREE);
         product = new GreenTea(TeaSort.GREEN_TEA, CupSize.BIG_SIZE, SugarQuantiti.ONE);
+        product = new BerhamotTea(TeaSort.BERHAMOT_TEA, CupSize.BIG_SIZE, SugarQuantiti.NONE);
     }
 }

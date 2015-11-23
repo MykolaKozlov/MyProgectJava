@@ -9,5 +9,6 @@ public class Demo {
         product = new CoffeeAmericano(CoffeeSort.ARABICA_MOCCA, CupSize.BIG_SIZE, SugarQuantiti.NONE);
         product = new Cappuccino(CoffeeSort.ARABICA_TARRUSA, CupSize.BIG_SIZE, SugarQuantiti.TWO, Milk.MILK, Additives.CHOCOLATE);
         product = new Mokachino(CoffeeSort.ARABICA_TARRUSA, CupSize.BIG_SIZE, SugarQuantiti.TWO, Milk.MILK, Additives.HOT_CHOCOLATE, Additives.CREAM);
+        product = new BlackTea(TeaSort.BLACK_TEA, CupSize.BIG_SIZE, SugarQuantiti.THREE);
     }
 }

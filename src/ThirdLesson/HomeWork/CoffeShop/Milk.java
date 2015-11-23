@@ -1,7 +1,7 @@
 package ThirdLesson.HomeWork.CoffeShop;
 
 public enum Milk {
-    MILK(0.1);
+    NONE(0), MILK(0.2);
 
     private double id;
 

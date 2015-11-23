@@ -5,5 +5,6 @@ public class Demo {
         Product product;
         product = new BlackCoffee(CoffeeSort.ARABICA_KONA, CupSize.BIG_SIZE, SugarQuantiti.THREE);
         product = new BlackCoffee(CoffeeSort.ARABICA_TARRUSA, CupSize.MIDDLE_SIZE, SugarQuantiti.FIVE);
+        product = new CoffeeWithMilk(CoffeeSort.ARABICA_MOCCA, CupSize.BIG_SIZE, SugarQuantiti.TWO, Milk.NONE);
     }
 }

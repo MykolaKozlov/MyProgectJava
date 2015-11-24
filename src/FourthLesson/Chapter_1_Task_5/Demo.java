@@ -49,5 +49,7 @@ public class Demo {
         classRoom.isPresenr("Vasiliy", "Boyko");
 
         classRoom.printStudentsInfo(classRoom.students);
+
+        classRoom.printStudentsInfo(classRoom.getStudents());
     }
 }

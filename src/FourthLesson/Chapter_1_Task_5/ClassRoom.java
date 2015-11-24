@@ -39,4 +39,8 @@ public class ClassRoom {
             System.out.println(i + 1 + ". " + students.get(i).getName() + " " + students.get(i).getSecondName());
         }
     }
+
+    public List<Student> getStudents(){
+        return new ArrayList<>(students);
+    }
 }

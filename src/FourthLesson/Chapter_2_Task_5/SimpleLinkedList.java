@@ -10,8 +10,13 @@ public class SimpleLinkedList {
     }
 
     public void addFirst(Object object) {
-        Node node = new Node(object, root);
+        Node node = new Node();
+        node.object = object;
+        if (root != null) {
+            node.node = root;
+        }
         root = node;
+        size++;
     }
 
     public void addLast(Object object) {
@@ -29,13 +34,5 @@ public class SimpleLinkedList {
     private class Node {
         Object object;
         Node node;
-
-        public Node() {
-
-        }
-
-        public Node(Object object, Node root) {
-            this.object = object;
-        }
     }
 }

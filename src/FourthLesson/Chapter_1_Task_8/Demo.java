@@ -32,6 +32,10 @@ public class Demo {
         student7.setName("Masha");
         student7.setSecondName("Kotova");
 
+        Student student8 = new Student();
+        student8.setName("Mykola");
+        student8.setSecondName("Kozlov");
+
         classRoom.enterClass(student1);
         classRoom.enterClass(student2);
         classRoom.enterClass(student3);
@@ -40,7 +44,7 @@ public class Demo {
         classRoom.enterClass(student6);
         classRoom.enterClass(student7);
 
-        Student studentTest = student1;
+
 
 //        classRoom.leaveClass(student3);
 //
@@ -54,7 +58,7 @@ public class Demo {
 
         classRoom.printStudentsInfo(classRoom.getStudents());
 
-        classRoom.isPresenr2(studentTest);
+        classRoom.isPresenr2(student8);
 
 
 

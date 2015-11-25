@@ -4,27 +4,9 @@ public class SimpleLinkedList {
 
     private Node root;
     private int size;
-    private Object object;
-    private Node node;
 
     public SimpleLinkedList() {
 
-    }
-
-    public Object getObject() {
-        return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
-    }
-
-    public Node getNode() {
-        return node;
-    }
-
-    public void setNode(Node node) {
-        this.node = node;
     }
 
     public Node getRoot() {
@@ -57,5 +39,10 @@ public class SimpleLinkedList {
 
     public int getSise() {
         return getSize();
+    }
+
+    private class Node {
+        Object object;
+        Node node;
     }
 }

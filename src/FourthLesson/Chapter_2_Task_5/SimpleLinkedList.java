@@ -13,7 +13,7 @@ public class SimpleLinkedList {
         Node node = new Node();
         node.object = object;
         if (root != null) {
-            node.node = root;
+            node.ref = root;
         }
         root = node;
         size++;
@@ -33,6 +33,6 @@ public class SimpleLinkedList {
 
     private class Node {
         Object object;
-        Node node;
+        Node ref;
     }
 }

@@ -5,7 +5,7 @@ import java.awt.*;
 public class Eagle extends AbstractBattleFieldObject {
 
     public Eagle() {
-        super();
+
     }
 
     public Eagle(int x, int y) {

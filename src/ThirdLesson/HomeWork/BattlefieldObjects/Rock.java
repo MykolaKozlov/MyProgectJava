@@ -5,7 +5,7 @@ import java.awt.*;
 public class Rock extends AbstractBattleFieldObject {
 
     public Rock() {
-        super();
+
     }
 
     public Rock(int x, int y) {

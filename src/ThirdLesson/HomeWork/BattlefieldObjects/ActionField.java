@@ -17,13 +17,11 @@ public class ActionField extends JPanel {
 
     private String randomPosition() {
         String[] position = {"0_0", "64_128", "384_448"};
-//        String[] position = {"0_0"};
         Random random = new Random();
         return position[random.nextInt(position.length)];
     }
 
     private String position = randomPosition();
-
 
     public int getMinimumFieldSize() {
         return minimumFieldSize;
@@ -124,7 +122,6 @@ public class ActionField extends JPanel {
             }
             repaintFire();
         }
-
     }
 
     private void repaintFire() throws InterruptedException {
@@ -132,69 +129,9 @@ public class ActionField extends JPanel {
         Thread.sleep(bullet.getSpeed());
     }
 
-    public int fireDown() throws Exception {
-        String str = getQuadrantXY(abstractTank.getX(), abstractTank.getY());
-        int tankV = Integer.valueOf(str.substring(0, 1));
-        int tankH = Integer.valueOf(str.substring(2, str.length()));
-        abstractTank.turn(Direction.DOWN);
-        for (int idx = tankV; idx < battleField.getBattleField().length; idx++) {
-            for (int j = tankH; j < tankH + 1; j++) {
-                if (battleField.scanQuadrant(idx, j) == "B") {
-                    abstractTank.fire();
-                }
-            }
-        }
-        return tankV;
-    }
-
-    public int fireRight() throws Exception {
-        String str = getQuadrantXY(abstractTank.getX(), abstractTank.getY());
-        int tankV = Integer.valueOf(str.substring(0, 1));
-        int tankH = Integer.valueOf(str.substring(2, str.length()));
-        abstractTank.turn(Direction.RIGHT);
-        for (int idx = tankV; idx < tankV + 1; idx++) {
-            for (int j = tankH; j < 9; j++) {
-                if (battleField.scanQuadrant(idx, j) == "B") {
-                    abstractTank.fire();
-                }
-            }
-        }
-        return tankH;
-    }
-
-    public int fireUp() throws Exception {
-        String str = getQuadrantXY(abstractTank.getX(), abstractTank.getY());
-        int tankV = Integer.valueOf(str.substring(0, 1));
-        int tankH = Integer.valueOf(str.substring(2, str.length()));
-        abstractTank.turn(Direction.UP);
-        for (int idx = tankV; idx >= 0; idx--) {
-            for (int j = tankH; j < tankH + 1; j++) {
-                if (battleField.scanQuadrant(idx, j) == "B") {
-                    abstractTank.fire();
-                }
-            }
-        }
-        return tankV;
-    }
-
-    public int fireLeft() throws Exception {
-        String str = getQuadrantXY(abstractTank.getX(), abstractTank.getY());
-        int tankV = Integer.valueOf(str.substring(0, 1));
-        int tankH = Integer.valueOf(str.substring(2, str.length()));
-        abstractTank.turn(Direction.LEFT);
-        for (int idx = tankV; idx < tankV + 1; idx++) {
-            for (int j = tankH; j >= 0; j--) {
-                if (battleField.scanQuadrant(idx, j) == "B") {
-                    abstractTank.fire();
-                }
-            }
-        }
-        return tankH;
-    }
-
     public void runTheGame() throws Exception {
-//        abstractTank.clean();
-//        tiger = new Tiger(0, 0, Direction.LEFT, this, battleField, 1);
+        abstractTank.fire();
+        abstractTank.move();
         abstractTank.fire();
         abstractTank.fire();
         abstractTank.fire();
@@ -210,21 +147,22 @@ public class ActionField extends JPanel {
         int bulletYPosition = Integer.valueOf(bulletCoordinate.substring(bulletCoordinate.lastIndexOf("_") + 1, bulletCoordinate.length()));
         int agressorXPosition = Integer.parseInt(tigerCoordinate.substring(0, tigerCoordinate.indexOf("_")));
         int agressorYPosition = Integer.parseInt(tigerCoordinate.substring(tigerCoordinate.lastIndexOf("_") + 1, tigerCoordinate.length()));
-        if (bulletXPosition >= battleField.getBattleField().length
-                - battleField.getBattleField().length
-                && bulletXPosition < battleField.getBattleField().length
-                && bulletYPosition >= battleField.getBattleField().length
-                - battleField.getBattleField().length
-                && bulletYPosition < battleField.getBattleField().length
-                && battleField.scanQuadrant(bulletXPosition, bulletYPosition) == "B") {
-            battleField.updateQuadrant(bulletXPosition, bulletYPosition, " ");
-            return true;
-        }
-        if (bulletXPosition == agressorXPosition && bulletYPosition == agressorYPosition) {
-            tiger.destroy();
-            Thread.sleep(3000);
-            tiger = new Tiger(Integer.parseInt(position.substring(0, position.indexOf("_"))), Integer.parseInt(position.substring(position.lastIndexOf("_") + 1, position.length())), Direction.LEFT, this, battleField, 1);
-            return true;
+
+        if (bulletXPosition >= battleField.getAbstractBattleFieldObject().length
+                - battleField.getAbstractBattleFieldObject().length
+                && bulletXPosition < battleField.getAbstractBattleFieldObject().length
+                && bulletYPosition >= battleField.getAbstractBattleFieldObject().length
+                - battleField.getAbstractBattleFieldObject().length
+                && bulletYPosition < battleField.getAbstractBattleFieldObject().length) {
+
+            if (battleField.scanQuadrant(bulletXPosition, bulletYPosition) instanceof Brick && bulletYPosition == battleField.scanQuadrant(bulletXPosition, bulletYPosition).getX() / cellSize && bulletXPosition == battleField.scanQuadrant(bulletXPosition, bulletYPosition).getY() / cellSize) {
+                battleField.scanQuadrant(bulletXPosition, bulletYPosition).destroy();
+                return true;
+            }
+            if (bulletXPosition == agressorXPosition && bulletYPosition == agressorYPosition) {
+                tiger.destroy();
+                return true;
+            }
         }
         return false;
     }
@@ -240,7 +178,7 @@ public class ActionField extends JPanel {
     public ActionField() throws Exception {
         battleField = new BattleField();
         abstractTank = new T34Defender(this, battleField);
-        tiger = new Tiger(Integer.parseInt(position.substring(0, position.indexOf("_"))), Integer.parseInt(position.substring(position.lastIndexOf("_") + 1, position.length())), Direction.LEFT, this, battleField, 1);
+        tiger = new Tiger(0, 0, Direction.LEFT, this, battleField, 1);
         bullet = new Bullet(-100, -100, Direction.STOP);
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
         frame.setLocation(750, 150);

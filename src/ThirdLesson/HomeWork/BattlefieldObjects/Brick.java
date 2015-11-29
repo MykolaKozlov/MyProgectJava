@@ -10,7 +10,7 @@ public class Brick extends AbstractBattleFieldObject {
     }
 
     public Brick() {
-        super();
+
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.awt.*;
 public class Water extends AbstractBattleFieldObject {
 
     public Water() {
-        super();
+
     }
 
     public Water(int x, int y) {

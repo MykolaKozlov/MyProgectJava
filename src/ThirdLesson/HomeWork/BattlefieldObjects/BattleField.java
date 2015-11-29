@@ -8,42 +8,66 @@ public class BattleField implements Drowable {
     private int BF_WIDTH = 576;
     private int BF_HEIGHT = 576;
     private boolean COLORDED_MODE = false;
-    private AbstractBattleFieldObject object;
+    private int xLength = 9;
+    private int yLength = 9;
 
-    private String[][] battleField = {
+    private String[][] testBattleField = {
             {" ", "R", "R", "R", "R", "R", "R", "R", " "},
             {" ", " ", "B", " ", "W", " ", "B", " ", " "},
             {" ", " ", " ", " ", "W", " ", " ", " ", " "},
             {" ", " ", " ", " ", "B", " ", " ", " ", " "},
+            {"B", " ", " ", " ", "W", " ", " ", " ", " "},
             {" ", " ", " ", " ", "W", " ", " ", " ", " "},
-            {" ", " ", " ", " ", "W", " ", " ", " ", " "},
-            {" ", " ", " ", " ", "B", " ", " ", " ", " "},
-            {" ", " ", " ", "R", "R", "R", " ", " ", " "},
+            {"B", " ", " ", " ", "B", " ", " ", " ", " "},
+            {"B", " ", " ", "R", "R", "R", " ", " ", " "},
             {" ", "B", "B", "R", "E", "R", "B", "B", " "}};
 
+    public AbstractBattleFieldObject[][] battleFieldObjects = new AbstractBattleFieldObject[xLength][yLength];
 
-    public String scanQuadrant(int v, int h) {
-        return battleField[v][h];
+    public void addObject() {
+        for (int i = 0; i < testBattleField.length; i++) {
+            for (int j = 0; j < testBattleField[i].length; j++) {
+                if (testBattleField[i][j] == (" ")) {
+                    battleFieldObjects[i][j] = new CapBrick(j * 64, i * 64);
+                }
+                if (testBattleField[i][j] == ("R")) {
+                    battleFieldObjects[i][j] = new Rock(j * 64, i * 64);
+                }
+                if (testBattleField[i][j] == ("B")) {
+                    battleFieldObjects[i][j] = new Brick(j * 64, i * 64);
+                }
+                if (testBattleField[i][j] == ("W")) {
+                    battleFieldObjects[i][j] = new Water(j * 64, i * 64);
+                }
+                if (testBattleField[i][j] == ("E")) {
+                    battleFieldObjects[i][j] = new Eagle(j * 64, i * 64);
+                }
+            }
+        }
     }
 
-    public void updateQuadrant(int v, int h, String constant) {
-        battleField[v][h] = constant;
+    public AbstractBattleFieldObject scanQuadrant(int v, int h) {
+        return battleFieldObjects[v][h];
+    }
+
+    public void updateQuadrant(int v, int h, CapBrick capBrick) {
+        battleFieldObjects[v][h] = capBrick;
     }
 
     public int getDimentionX() {
-        return battleField.length;
+        return battleFieldObjects.length;
     }
 
     public int getDimentionY() {
-        return battleField.length;
+        return battleFieldObjects.length;
     }
 
     public BattleField() {
-
+        addObject();
     }
 
-    public BattleField(String[][] battleField) {
-        this.battleField = battleField;
+    public BattleField(AbstractBattleFieldObject[][] battleFieldObjects) {
+        this.battleFieldObjects = battleFieldObjects;
     }
 
     public int getBF_WIDTH() {
@@ -54,12 +78,8 @@ public class BattleField implements Drowable {
         return BF_HEIGHT;
     }
 
-    public String[][] getBattleField() {
-        return battleField;
-    }
-
-    private String getQuadrant(int v, int h) {
-        return (v - 1) * 64 + "_" + (h - 1) * 64;
+    public AbstractBattleFieldObject[][] getAbstractBattleFieldObject() {
+        return battleFieldObjects;
     }
 
     @Override
@@ -83,27 +103,9 @@ public class BattleField implements Drowable {
             }
         }
 
-        for (int j = 0; j < getDimentionY(); j++) {
-            for (int k = 0; k < getDimentionX(); k++) {
-                String coordinates = getQuadrant(j + 1, k + 1);
-                int separator = coordinates.indexOf("_");
-                int y = Integer.parseInt(coordinates
-                        .substring(0, separator));
-                int x = Integer.parseInt(coordinates
-                        .substring(separator + 1));
-                if (scanQuadrant(j, k).equals("B")) {
-                    object = new Brick(x, y);
-                    object.draw(graphics);
-                } else if (scanQuadrant(j, k).equals("R")) {
-                    object = new Rock(x, y);
-                    object.draw(graphics);
-                } else if (scanQuadrant(j, k).equals("W")) {
-                    object = new Water(x, y);
-                    object.draw(graphics);
-                } else if (scanQuadrant(j, k).equals("E")) {
-                    object = new Eagle(x, y);
-                    object.draw(graphics);
-                }
+        for (int j = 0; j < battleFieldObjects.length; j++) {
+            for (int k = 0; k < battleFieldObjects[j].length; k++) {
+                battleFieldObjects[j][k].draw(graphics);
             }
         }
     }

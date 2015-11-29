@@ -70,42 +70,6 @@ public abstract class AbstractTank implements Drawable, Destroyable {
         actionField.processFire(bullet);
     }
 
-
-    public void moveToQuadrant(int v, int h) throws Exception {
-        String coordinates = actionField.getQuadrant(v, h);
-        int separator = coordinates.indexOf("_");
-        int x = Integer.parseInt(coordinates.substring(0, separator));
-        int y = Integer.parseInt(coordinates.substring(separator + 1));
-
-        if (this.y < x && x >= actionField.getMinimumFieldSize() && x <= actionField.getMaximumFieldSize()) {
-            turn(Direction.DOWN);
-            while (this.y != x) {
-                move();
-            }
-        }
-
-        if (this.y > x && x >= actionField.getMinimumFieldSize() && x <= actionField.getMaximumFieldSize()) {
-            turn(Direction.UP);
-            while (this.y != x) {
-                move();
-            }
-        }
-
-        if (this.x < y && y >= actionField.getMinimumFieldSize() && y <= actionField.getMaximumFieldSize()) {
-            turn(Direction.RIGHT);
-            while (this.x != y) {
-                move();
-            }
-        }
-
-        if (this.x > y && y >= actionField.getMinimumFieldSize() && y <= actionField.getMaximumFieldSize()) {
-            turn(Direction.LEFT);
-            while (this.x != y) {
-                move();
-            }
-        }
-    }
-
     public int random() {
         int rand = 0;
         int[] array = {1, 2, 3, 4};
@@ -126,47 +90,6 @@ public abstract class AbstractTank implements Drawable, Destroyable {
             rand = array[3];
         }
         return rand;
-    }
-
-    void clean() throws Exception {
-        String str = actionField.getQuadrantXY(getX(), getY());
-        int tankV = Integer.valueOf(str.substring(0, 1));
-        int tankH = Integer.valueOf(str.substring(2, str.length()));
-
-        if (battleField.scanQuadrant(tankH, tankV) == "B") {
-            System.out.println("Initial data are false!");
-            System.out.println("GAME OVER!!!");
-            return;
-        } else {
-            for (int i = tankV + 1; i >= 1; i--) {
-                actionField.fireUp();
-                actionField.fireRight();
-                actionField.fireDown();
-                actionField.fireLeft();
-                moveToQuadrant(i, tankH + 1);
-                tankV--;
-            }
-            for (int i = tankH + 1; i >= 1; i--) {
-                actionField.fireUp();
-                actionField.fireRight();
-                actionField.fireDown();
-                actionField.fireLeft();
-                moveToQuadrant(tankV + 1, i);
-            }
-            for (int i = 1; i <= battleField.getBattleField().length; i++) {
-                actionField.fireUp();
-                actionField.fireRight();
-                actionField.fireDown();
-                actionField.fireLeft();
-                moveToQuadrant(i, 1);
-            }
-        }
-        // fire
-        actionField.fireUp();
-        actionField.fireRight();
-        actionField.fireDown();
-        actionField.fireLeft();
-        System.out.println("GAME OVER!!!");
     }
 
     public void destroy() {

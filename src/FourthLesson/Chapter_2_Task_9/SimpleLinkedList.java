@@ -49,19 +49,27 @@ public class SimpleLinkedList {
         paste.object = objectPaste;
         Node cp = firstElementInList;
         if (firstElementInList == null) {
-            firstElementInList = paste;
-            lastElementInList = paste;
+            System.err.println("List is empty");
+            return;
         }
-        if (size == 1) {
+        if (size == 1 && cp.object.equals(object)) {
+            firstElementInList.refNexrElementInList = lastElementInList.refNexrElementInList;
             lastElementInList.refNexrElementInList = paste;
-            lastElementInList = paste;
         }
         if (lastElementInList.object.equals(object)) {
             lastElementInList.refNexrElementInList = paste;
             lastElementInList = paste;
         } else {
-            while (cp.refNexrElementInList != null) {
-                if (cp.object.equals(object)) {
+            while (cp.refNexrElementInList != null || cp.refNexrElementInList == null) {
+                try {
+                    if (cp.refNexrElementInList == null) {
+                        throw new IllegalStateException();
+                    }
+                } catch (IllegalStateException e) {
+                    System.err.println("Not found parameter " + object + "!!!");
+                    return;
+                }
+                if (cp.object.equals(object) && cp.refNexrElementInList != null) {
                     paste.refNexrElementInList = cp.refNexrElementInList;
                     cp.refNexrElementInList = paste;
                     return;

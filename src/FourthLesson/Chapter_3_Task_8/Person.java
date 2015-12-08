@@ -61,7 +61,9 @@ public class Person {
         int result = name.hashCode();
         result = 31 * result + age;
         result = 31 * result + (int) (salary ^ (salary >>> 32));
-        result = 31 * result + address.hashCode();
+        if (address != null) {
+            result = 31 * result + address.hashCode();
+        }
         return result;
     }
 }

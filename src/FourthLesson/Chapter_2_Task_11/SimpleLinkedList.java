@@ -75,6 +75,7 @@ public class SimpleLinkedList implements Iterable {
                 if (cp.object.equals(object) && cp.refNexrElementInList != null) {
                     paste.refNexrElementInList = cp.refNexrElementInList;
                     cp.refNexrElementInList = paste;
+                    size++;
                     return;
                 }
                 cp = cp.refNexrElementInList;

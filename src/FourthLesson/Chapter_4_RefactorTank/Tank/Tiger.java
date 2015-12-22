@@ -1,18 +1,21 @@
 package FourthLesson.Chapter_4_RefactorTank.Tank;
 
-import FourthLesson.Chapter_4_RefactorTank.Action.ActionField;
 import FourthLesson.Chapter_4_RefactorTank.Action.Direction;
 import FourthLesson.Chapter_4_RefactorTank.Battlefield.BattleField;
-import FourthLesson.Chapter_4_RefactorTank.Tank.AbstractTank;
 
 import java.awt.*;
 
 public class Tiger extends AbstractTank {
     protected int armor;
 
-    public Tiger(int x, int y, Direction direction, ActionField actionField, BattleField battleField, int armor) {
-        super(x, y, direction, actionField, battleField);
+    public Tiger(int x, int y, Direction direction, BattleField battleField, int armor) {
+        super(x, y, direction, battleField);
         this.armor = armor;
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return super.isDestroyed();
     }
 
     @Override
@@ -21,6 +24,11 @@ public class Tiger extends AbstractTank {
             super.destroy();
         }
         armor--;
+    }
+
+    @Override
+    public void turn(Direction direction) {
+        super.turn(direction);
     }
 
     @Override

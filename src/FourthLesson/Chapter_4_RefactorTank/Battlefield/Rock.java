@@ -1,7 +1,5 @@
 package FourthLesson.Chapter_4_RefactorTank.Battlefield;
 
-import FourthLesson.Chapter_4_RefactorTank.Battlefield.AbstractBattleFieldObject;
-
 import java.awt.*;
 
 public class Rock extends AbstractBattleFieldObject {
@@ -12,12 +10,6 @@ public class Rock extends AbstractBattleFieldObject {
 
     public Rock(int x, int y) {
         super(x, y);
-    }
-
-    @Override
-    public void destroy() {
-        setX(-100);
-        setY(-100);
     }
 
     @Override

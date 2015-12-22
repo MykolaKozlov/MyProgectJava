@@ -9,6 +9,7 @@ public abstract class AbstractBattleFieldObject implements Drawable, Destroyable
 
     private int x;
     private int y;
+    private boolean isDestroyed = false;
 
     public AbstractBattleFieldObject() {
 
@@ -37,12 +38,22 @@ public abstract class AbstractBattleFieldObject implements Drawable, Destroyable
 
     @Override
     public void destroy() {
+        setX(-100);
+        setY(-100);
+        isDestroyed = true;
+    }
 
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
     @Override
     public void draw(Graphics graphics) {
 
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        isDestroyed = destroyed;
     }
 }
 

@@ -11,11 +11,13 @@ public class Bullet implements Destroyable, Drawable {
     private int y;
     private int speed = 5;
     private Direction direction;
+    private boolean destroyed;
 
     public Bullet(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.destroyed = false;
     }
 
     public int getX() {
@@ -34,6 +36,10 @@ public class Bullet implements Destroyable, Drawable {
         return speed;
     }
 
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
     public void updateX(int x) {
         this.x += x;
     }
@@ -45,6 +51,7 @@ public class Bullet implements Destroyable, Drawable {
     public void destroy() {
         x = -100;
         y = -100;
+        destroyed = true;
     }
 
     @Override

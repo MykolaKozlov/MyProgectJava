@@ -54,6 +54,10 @@ public class BattleField implements Drowable {
         battleFieldObjects[v][h] = capBrick;
     }
 
+    public void destroyObject(int v, int h) {
+        battleFieldObjects[v][h].destroy();
+    }
+
     public int getDimentionX() {
         return battleFieldObjects.length;
     }

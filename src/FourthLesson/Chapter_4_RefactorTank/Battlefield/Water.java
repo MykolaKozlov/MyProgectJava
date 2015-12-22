@@ -1,7 +1,5 @@
 package FourthLesson.Chapter_4_RefactorTank.Battlefield;
 
-import FourthLesson.Chapter_4_RefactorTank.Battlefield.AbstractBattleFieldObject;
-
 import java.awt.*;
 
 public class Water extends AbstractBattleFieldObject {

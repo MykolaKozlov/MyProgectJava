@@ -63,7 +63,15 @@ public class ActionField extends JPanel {
                 h--;
             }
             AbstractBattleFieldObject bfObject = battleField.scanQuadrant(v, h);
-            if (!(bfObject instanceof CapBrick)) {
+            if ((agressor.getDirection() == Direction.UP || defender.getDirection() == Direction.DOWN) && (defender.getY() + cellSize == agressor.getY()) && (defender.getX() == agressor.getX())) {
+                illegaleMove(tank, tank.getDirection());
+            } else if ((agressor.getDirection() == Direction.DOWN || defender.getDirection() == Direction.UP) && (defender.getY() - cellSize == agressor.getY()) && (defender.getX() == agressor.getX())) {
+                illegaleMove(tank, tank.getDirection());
+            } else if ((agressor.getDirection() == Direction.LEFT || defender.getDirection() == Direction.RIGHT) && (defender.getY() == agressor.getY()) && (defender.getX() + cellSize == agressor.getX())) {
+                illegaleMove(tank, tank.getDirection());
+            } else if ((agressor.getDirection() == Direction.RIGHT || defender.getDirection() == Direction.LEFT) && (defender.getY() == agressor.getY()) && (defender.getX() - cellSize == agressor.getX())) {
+                illegaleMove(tank, tank.getDirection());
+            } else if (!(bfObject instanceof CapBrick) && !bfObject.isDestroyed()) {
                 illegaleMove(tank, tank.getDirection());
             } else {
                 for (int i = 0; i < cellSize; i++) {
@@ -80,41 +88,41 @@ public class ActionField extends JPanel {
     }
 
     private void illegaleMove(Tank tank, Direction direction) {
-        System.out.println("[illegal move] " + "derection:" + direction + "||"
-                + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
+//        System.out.println("[illegal move] " + "derection:" + direction + "||"
+//                + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
         return;
     }
 
     private void moveUp(Tank tank, Direction direction) {
         if (direction == Direction.UP) {
             tank.updateY(-step);
-            System.out.println("[move up] " + "derection:" + direction + "||"
-                    + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
+//            System.out.println("[move up] " + "derection:" + direction + "||"
+//                    + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
         }
     }
 
     private void moveDown(Tank tank, Direction direction) {
         if (direction == Direction.DOWN) {
             tank.updateY(step);
-            System.out.println("[move down] " + "derection:" + direction + "||"
-                    + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
+//            System.out.println("[move down] " + "derection:" + direction + "||"
+//                    + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
         }
     }
 
     private void moveLeft(Tank tank, Direction direction) {
         if (direction == Direction.LEFT) {
             tank.updateX(-step);
-            System.out.println("[move left] " + "derection:" + direction + "||"
-                    + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
+//            System.out.println("[move left] " + "derection:" + direction + "||"
+//                    + "tankX:" + tank.getX() + "||" + "tankY:" + tank.getY());
         }
     }
 
     private void moveRight(Tank tank, Direction direction) {
         if (direction == Direction.RIGHT) {
             tank.updateX(step);
-            System.out.println("[move right] " + "derection:" + direction
-                    + "||" + "tankX:" + tank.getX() + "||" + "tankY:"
-                    + tank.getY());
+//            System.out.println("[move right] " + "derection:" + direction
+//                    + "||" + "tankX:" + tank.getX() + "||" + "tankY:"
+//                    + tank.getY());
         }
     }
 
@@ -173,7 +181,6 @@ public class ActionField extends JPanel {
         }
     }
 
-
     private boolean processInterception() {
         String coordinates = getQuadrantXY(bullet.getX(), bullet.getY());
         int y = Integer.parseInt(coordinates.split("_")[0]);
@@ -227,8 +234,8 @@ public class ActionField extends JPanel {
 
     public ActionField() throws Exception {
         battleField = new BattleField();
-        defender = new T34Defender(0, 128, Direction.UP, battleField);
-        agressor = new Tiger(0, 0, Direction.RIGHT, battleField, 1);
+        defender = new T34Defender(512, 256, Direction.DOWN, battleField);
+        agressor = new Tiger(128, 256, Direction.RIGHT, battleField, 1);
         bullet = new Bullet(-100, -100, Direction.STOP);
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
         frame.setLocation(750, 150);

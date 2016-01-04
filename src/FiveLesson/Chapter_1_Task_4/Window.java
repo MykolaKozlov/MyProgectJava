@@ -6,6 +6,7 @@ public class Window {
     public static void main(String[] args) {
         JFrame jFrame = new JFrame("MyFirstWindow");
         jFrame.setBounds(300, 100, 800, 600);
+        jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
     }
 }

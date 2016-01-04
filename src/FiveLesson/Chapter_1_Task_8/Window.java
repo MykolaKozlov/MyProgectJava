@@ -7,16 +7,13 @@ public class Window extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect(300, 100, 800, 600);
-
     }
 
     public void drow() {
         JFrame jFrame = new JFrame("Window");
         jFrame.setBounds(300, 100, 800, 600);
         jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-//        jFrame.setBackground(Color.BLUE);
+        jFrame.setBackground(Color.BLUE);
         jFrame.getContentPane().add(this);
         jFrame.setVisible(true);
     }

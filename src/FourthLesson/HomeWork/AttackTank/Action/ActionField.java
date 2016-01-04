@@ -1,14 +1,12 @@
 package FourthLesson.HomeWork.AttackTank.Action;
 
-import FourthLesson.HomeWork.AttackTank.Battlefield.AbstractBattleFieldObject;
-import FourthLesson.HomeWork.AttackTank.Battlefield.BattleField;
-import FourthLesson.HomeWork.AttackTank.Battlefield.CapBrick;
-import FourthLesson.HomeWork.AttackTank.Battlefield.Water;
+import FourthLesson.HomeWork.AttackTank.Battlefield.*;
 import FourthLesson.HomeWork.AttackTank.Tank.Action;
 import FourthLesson.HomeWork.AttackTank.Tank.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class ActionField extends JPanel {
@@ -21,6 +19,9 @@ public class ActionField extends JPanel {
     private Tank defender;
     private Tank agressor;
     private Bullet bullet;
+    private LinkedList<Action> actions = new LinkedList();
+    private int targetX = 0;
+    private int targetY = 0;
 
     private String randomPosition() {
         String[] position = {"0_0", "64_128", "384_448"};
@@ -162,17 +163,50 @@ public class ActionField extends JPanel {
     }
 
     public void runTheGame() throws Exception {
-        processAction(defender.moveToQuadrant(1, 5), defender);
+        while (!battleField.scanQuadrant(targetY, targetX).isDestroyed()) {
+            destroyTheTarget(agressor);
+            for (int i = 0; i < actions.size(); i++) {
+                if (actions.get(i) != null) {
+                    processAction(actions.get(i), agressor);
+                }
+            }
+        }
+
+//        destroyTheTarget(agressor);
+//        for (int i = 0; i < actions.size(); i++) {
+//            if (actions.get(i) != null) {
+//                processAction(actions.get(i), agressor);
+//            }
+//        }
+//        destroyTheTarget(agressor);
+//        for (int i = 0; i < actions.length; i++){
+//            if (actions[i] != null){
+//                processAction(actions[i], agressor);
+//            }
+//        }
+
+
+//        processAction(defender.moveToQuadrant(1, 5), defender);
     }
 
-    private void processAction(FourthLesson.HomeWork.AttackTank.Tank.Action action, Tank tank) throws Exception {
+    private void processAction(Action action, Tank tank) throws Exception {
         if (action == Action.FIRE) {
             processFire(tank.fire());
         } else if (action == Action.MOVE) {
             processMove(tank);
         } else if (action == Action.TURN) {
-            Random random = new Random();
-            tank.turn(Direction.values()[random.nextInt(4)]);
+            processTurn(tank);
+        } else if (action == Action.DOWN) {
+            tank.turn(Direction.DOWN);
+            processTurn(tank);
+        } else if (action == Action.UP) {
+            tank.turn(Direction.UP);
+            processTurn(tank);
+        } else if (action == Action.LEFT) {
+            tank.turn(Direction.LEFT);
+            processTurn(tank);
+        } else if (action == Action.RIGHT) {
+            tank.turn(Direction.RIGHT);
             processTurn(tank);
         }
     }
@@ -219,6 +253,125 @@ public class ActionField extends JPanel {
         return false;
     }
 
+    public void destroyTheTarget(Tank tank) {
+//        find the target
+        for (int i = 0; i < battleField.getAbstractBattleFieldObject().length; i++) {
+            for (int j = 0; j < battleField.getAbstractBattleFieldObject()[i].length; j++) {
+                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(i, j);
+                if (bfObject instanceof Eagle) {
+                    targetY = i;
+                    targetX = j;
+                    break;
+                }
+            }
+        }
+
+//        scan way the target
+        if (tank.getX() / 64 < targetX && tank.getY() / 64 < targetY) {
+            checkRightAndDown(tank, targetX);
+        }
+
+        if (tank.getX() / 64 == targetX) {
+            checkDown(tank, targetY);
+        }
+
+        if (tank.getY() / 64 >= targetY) {
+            checkRightAndUp(tank);
+        }
+    }
+
+    private void checkRightAndUp(Tank tank) {
+        actions.removeAll(actions);
+        actions.addLast(Action.RIGHT);
+        for (int i = tank.getY() / 64; i <= tank.getY() / 64; i++) {
+            for (int j = tank.getX() / 64 + 1; j <= targetX; j++) {
+                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(i, j);
+                if (bfObject instanceof Rock || bfObject instanceof Brick || bfObject instanceof Eagle) {
+                    actions.addLast(Action.FIRE);
+                }
+                if (bfObject instanceof Water) {
+                    actions.removeAll(actions);
+                    actions.addLast(Action.UP);
+                    for (int f = tank.getX() / 64; f <= tank.getX() / 64; f++) {
+                        for (int g = tank.getY() / 64 - 1; g >= tank.getY() / 64 - 1; g--) {
+                            AbstractBattleFieldObject ggg = battleField.scanQuadrant(g, f);
+                            if (ggg instanceof Rock || ggg instanceof Brick || ggg instanceof Eagle) {
+                                actions.addLast(Action.FIRE);
+                            }
+                        }
+                    }
+                    actions.addLast(Action.MOVE);
+                    return;
+                }
+            }
+            for (int k = 0; k < targetX; k++) {
+                actions.addLast(Action.MOVE);
+            }
+        }
+        actions.addLast(Action.UP);
+        for (int y = targetY; y <= targetY; y++) {
+            for (int g = 1; g < 9; g++) {
+                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(g, y);
+                if (bfObject instanceof Rock || bfObject instanceof Brick || bfObject instanceof Eagle) {
+                    actions.addLast(Action.FIRE);
+                }
+            }
+        }
+    }
+
+    private void checkDown(Tank tank, int targetY) {
+        actions.addLast(Action.DOWN);
+        for (int i = tank.getX() / 64; i <= tank.getX() / 64; i++) {
+            for (int j = tank.getY() / 64 + 1; j <= targetY; j++) {
+                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(j, i);
+                if (bfObject instanceof Rock || bfObject instanceof Brick || bfObject instanceof Eagle) {
+                    actions.addLast(Action.FIRE);
+                }
+            }
+            for (int k = 0; k < targetY; k++) {
+                actions.addLast(Action.MOVE);
+            }
+        }
+    }
+
+    private void checkRightAndDown(Tank tank, int targetX) {
+        actions.removeAll(actions);
+        actions.addLast(Action.RIGHT);
+        for (int i = tank.getY() / 64; i <= tank.getY() / 64; i++) {
+            for (int j = tank.getX() / 64 + 1; j <= targetX; j++) {
+                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(i, j);
+                if (bfObject instanceof Rock || bfObject instanceof Brick || bfObject instanceof Eagle) {
+                    actions.addLast(Action.FIRE);
+                }
+                if (bfObject instanceof Water) {
+                    actions.removeAll(actions);
+                    actions.addLast(Action.DOWN);
+                    for (int f = tank.getX() / 64; f <= tank.getX() / 64; f++) {
+                        for (int g = tank.getY() / 64 + 1; g <= tank.getY() / 64 + 1; g++) {
+                            AbstractBattleFieldObject ggg = battleField.scanQuadrant(g, f);
+                            if (ggg instanceof Rock || ggg instanceof Brick || ggg instanceof Eagle) {
+                                actions.addLast(Action.FIRE);
+                            }
+                        }
+                    }
+                    actions.addLast(Action.MOVE);
+                    return;
+                }
+            }
+            for (int k = 0; k < targetX; k++) {
+                actions.addLast(Action.MOVE);
+            }
+        }
+        actions.addLast(Action.DOWN);
+        for (int y = targetX; y <= targetX; y++) {
+            for (int g = 1; g < 9; g++) {
+                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(g, y);
+                if (bfObject instanceof Rock || bfObject instanceof Brick || bfObject instanceof Eagle) {
+                    actions.addLast(Action.FIRE);
+                }
+            }
+        }
+    }
 
     public String getQuadrantXY(int x, int y) {
         return y / cellSize + "_" + x / cellSize;
@@ -231,7 +384,7 @@ public class ActionField extends JPanel {
     public ActionField() throws Exception {
         battleField = new BattleField();
         defender = new T34Defender(512, 256, Direction.DOWN, battleField);
-        agressor = new Tiger(128, 256, Direction.RIGHT, battleField, 1);
+        agressor = new Tiger(0, 256, Direction.DOWN, battleField, 1);
         bullet = new Bullet(-100, -100, Direction.STOP);
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
         frame.setLocation(750, 150);

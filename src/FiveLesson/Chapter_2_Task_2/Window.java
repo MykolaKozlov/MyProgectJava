@@ -7,7 +7,9 @@ public class Window extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        g.setColor(Color.cyan);
+        g.fillRect(0, 0, 800, 600);
+        g.setColor(Color.BLACK);
         g.setFont(new Font("TimesRoman", Font.ITALIC, 30));
         g.drawString("MY FIRST TEXT", 100, 100);
     }

@@ -5,16 +5,18 @@ import java.awt.*;
 
 public class Window extends JPanel {
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setFont(new Font("TimesRoman", Font.ITALIC, 30));
+        g.drawString("MY FIRST TEXT", 100, 100);
+    }
+
     public void drow() {
         JFrame jFrame = new JFrame("Window");
-        JLabel jLabel = new JLabel("Text");
         jFrame.getContentPane().add(this);
         jFrame.setBounds(300, 100, 800, 600);
         jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-        jLabel.setFont(new Font("dsfgsdfgs", Font.ROMAN_BASELINE, 100));
         jFrame.setVisible(true);
-
-
-
     }
 }

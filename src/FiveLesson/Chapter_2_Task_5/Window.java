@@ -12,15 +12,13 @@ public class Window extends JPanel {
     private final String IMAGE_NAME = "TANK.png";
     private Image tank;
 
-    public Window (){
+    public Window() {
         try {
             tank = ImageIO.read(new File(IMAGE_NAME));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 
 
     @Override
@@ -36,7 +34,6 @@ public class Window extends JPanel {
                 return false;
             }
         });
-
     }
 
     public void drow() {

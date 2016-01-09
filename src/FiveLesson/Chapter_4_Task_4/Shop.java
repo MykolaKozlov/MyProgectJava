@@ -48,6 +48,11 @@ public class Shop {
 
     public void quantityAndPriceOfGoods(MotorcycleBrand motorcycleBrand) {
         for (int i = motorcycleBrand.getId(); i <= motorcycleBrand.getId(); i++) {
+            if (i == MotorcycleBrand.values().length) {
+                break;
+            } else {
+                System.out.println("-------------------- BRAND: " + MotorcycleBrand.values()[i] + " --------------------");
+            }
             for (int j = 0; j < motoShop[MotorcycleCategory.values().length].length; j++) {
                 if (j == MotorcycleCategory.values().length) {
                     break;
@@ -75,7 +80,7 @@ public class Shop {
             if (i == MotorcycleBrand.values().length) {
                 break;
             } else {
-                System.out.println("#################### BRAND: " + MotorcycleBrand.values()[i] + " ####################");
+                System.out.println("-------------------- BRAND: " + MotorcycleBrand.values()[i] + " --------------------");
             }
             for (int j = 0; j < motoShop[MotorcycleCategory.values().length].length; j++) {
                 if (j == MotorcycleCategory.values().length) {

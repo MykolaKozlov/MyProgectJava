@@ -52,16 +52,6 @@ public class MotoShopUI {
             public void actionPerformed(ActionEvent e) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
                 shop.byMotorcycle(articleTextField.getText(), quantity, nameTextField.getText(), telephoneNumberTextField.getText(), addressTextField.getText(), "05;29");
-//                shop.byMotorcycle(articleTextField.getText(), quantity, nameTextField.getText(), telephoneNumberTextField.getText(), addressTextField.getText(), dataTextField.getText());
-
-//                System.out.println(articleTextField.getText());
-//                System.out.println(quantity);
-//                System.out.println(nameTextField.getText());
-//                System.out.println(telephoneNumberTextField.getText());
-//                System.out.println(addressTextField.getText());
-//                System.out.println(dataTextField.getText());
-
-
                 shop.transactionsDuringTheDay("05;29");
             }
 
@@ -89,19 +79,13 @@ public class MotoShopUI {
         motorcycleBrands = MotorcycleBrand.values();
 
         JComboBox box = new JComboBox(motorcycleBrands);
-//        box.addActionListener(new ButtonActionListener());
 
-//        box.addItemListener(new ItemListener() {
-//            public void itemStateChanged(ItemEvent ie) {
-//                int state = ie.getStateChange();
-//                System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
-//                System.out.println("Item: " + ie.getItem());
-//                ItemSelectable is = ie.getItemSelectable();
-//                System.out.println(", Selected: " + selectedString(is));
-//            }
-//
-//        });
-
+        showMotorcycleByBrandsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shop.quantityAndPriceOfGoods((MotorcycleBrand) box.getSelectedItem());
+            }
+        });
 
         panel.add(showCatalogButton, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 

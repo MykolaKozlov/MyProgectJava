@@ -2,12 +2,8 @@ package FiveLesson.Chapter_4_Task_4;
 
 public class Demo {
     public static void main(String[] args) {
-        Shop shop = new Shop();
-        MotoShopUI motoShopUI = new MotoShopUI();
-        shop.addGoods();
+//        Shop shop = new Shop();
 
-
-        motoShopUI.motoShopPanel();
 //        add goods in shop
 //        shop.addMotorcycle(MotorcycleBrand.BMW, MotorcycleCategory.SPORTBIKE, MotorcycleColour.BLUE, 12500, 50);
 //        shop.addMotorcycle(MotorcycleBrand.HONDA, MotorcycleCategory.TURIST, MotorcycleColour.BLACK, 10000, 2);
@@ -50,6 +46,11 @@ public class Demo {
 //        shop.transactionsDuringTheDay("07;03");
 
 //        show catalog of goods();
+//        shop.showCatalogOfGoods();
+
+//        MotoShopUI motoShopUI = new MotoShopUI();
+//        motoShopUI.motoShopPanel();
+
 //        shop.showCatalogOfGoods();
     }
 }

@@ -140,7 +140,7 @@ public class Shop {
         for (int i = 0; i < purchaseArchive[Integer.parseInt(date.substring(0, date.indexOf(";")))][Integer.parseInt(date.substring(date.indexOf(";") + 1, date.length()))].length; i++) {
             if (findDayOnPurchaseArchive(date, i) != null) {
                 transactions = 1;
-                System.out.println("№" + (i + 1) + " " + findDayOnPurchaseArchive(date, i).getFullName() + " " + findDayOnPurchaseArchive(date, i).getMotorcycle().getMotorcycleBrand() + " " + findDayOnPurchaseArchive(date, i).getPrice() + " " + findDayOnPurchaseArchive(date, i).getQuantity());
+                System.out.println("№" + (i + 1) + " Name: " + findDayOnPurchaseArchive(date, i).getFullName() + ", BRAND: " + findDayOnPurchaseArchive(date, i).getMotorcycle().getMotorcycleBrand() + ", PRICE: " + findDayOnPurchaseArchive(date, i).getPrice() + ", QUANTITY: " + findDayOnPurchaseArchive(date, i).getQuantity());
                 transactions += i;
                 money += findDayOnPurchaseArchive(date, i).getPrice() * findDayOnPurchaseArchive(date, i).getQuantity();
                 purchases += findDayOnPurchaseArchive(date, i).getQuantity();

@@ -14,6 +14,8 @@ public class MotoShopUI {
     Shop shop;
 
     public MotoShopUI() {
+        shop = new Shop();
+        shop.addGoods();
     }
 
     public void motoShopPanel() {
@@ -29,13 +31,13 @@ public class MotoShopUI {
         JTextField articleTextField = new JTextField(10);
         JTextField quantityTextField = new JTextField(25);
         JTextField nameTextField = new JTextField(25);
-        JTextField dataTextField = new JTextField(25);
+//        JTextField dataTextField = new JTextField(25);
         JTextField telephoneNumberTextField = new JTextField(25);
         JTextField addressTextField = new JTextField(25);
 
 
         JButton showMotorcycleByBrandsButton = new JButton("SHOW MOTORCYCLE QUANTITY");
-//        showMotorcycleByBrandsButton.addActionListener(new ButtonActionListener());
+
         JButton showCatalogButton = new JButton("SHOW CATALOG");
         showCatalogButton.addActionListener(new ActionListener() {
             @Override
@@ -49,9 +51,20 @@ public class MotoShopUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
-                shop.byMotorcycle(articleTextField.getText(), quantity, nameTextField.getText(), telephoneNumberTextField.getText(), addressTextField.getText(), dataTextField.getText());
+                shop.byMotorcycle(articleTextField.getText(), quantity, nameTextField.getText(), telephoneNumberTextField.getText(), addressTextField.getText(), "05;29");
+//                shop.byMotorcycle(articleTextField.getText(), quantity, nameTextField.getText(), telephoneNumberTextField.getText(), addressTextField.getText(), dataTextField.getText());
 
+//                System.out.println(articleTextField.getText());
+//                System.out.println(quantity);
+//                System.out.println(nameTextField.getText());
+//                System.out.println(telephoneNumberTextField.getText());
+//                System.out.println(addressTextField.getText());
+//                System.out.println(dataTextField.getText());
+
+
+                shop.transactionsDuringTheDay("05;29");
             }
+
         });
 
         JLabel label = new JLabel("In order to buy the selected motorcycle complete the following form:");
@@ -64,8 +77,8 @@ public class MotoShopUI {
         enterQuantityLable.setForeground(Color.BLACK);
         JLabel enterNameLable = new JLabel("Enter your name:");
         enterNameLable.setForeground(Color.BLACK);
-        JLabel enterSurnameLable = new JLabel("Enter the date:");
-        enterSurnameLable.setForeground(Color.BLACK);
+//        JLabel enterSurnameLable = new JLabel("Enter the date:");
+//        enterSurnameLable.setForeground(Color.BLACK);
         JLabel enterTelephoneNumberLable = new JLabel("Enter your telephone number:");
         enterTelephoneNumberLable.setForeground(Color.BLACK);
         JLabel enterAddressLable = new JLabel("Enter your address:");
@@ -112,9 +125,9 @@ public class MotoShopUI {
 
         panel.add(nameTextField, new GridBagConstraints(1, 6, 2, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 
-        panel.add(enterSurnameLable, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
-
-        panel.add(dataTextField, new GridBagConstraints(1, 7, 2, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
+//        panel.add(enterSurnameLable, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
+//
+//        panel.add(dataTextField, new GridBagConstraints(1, 7, 2, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 
         panel.add(enterTelephoneNumberLable, new GridBagConstraints(0, 8, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 

@@ -26,6 +26,10 @@ public class ActionField extends JPanel {
 
     private boolean isRunAgressor = false;
     private boolean isRunDefender = false;
+    private boolean agressorDestroy = false;
+    private boolean defenderDestroy = false;
+
+
     private PanelEnd panelEnd;
     private JFrame frame;
     private JLabel tankWin;
@@ -71,21 +75,25 @@ public class ActionField extends JPanel {
             }
         });
 
+        JMenuItem playAgain = new JMenuItem("PLAY");
+        playAgain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createStartPanel(startPanelStart);
+            }
+        });
+
         tankWin = new JLabel();
         tankWin.setForeground(Color.WHITE);
         tankWin.setFont(new Font("ARIAL", Font.BOLD, 50));
 
-        JButton playAgain = new JButton("PLAY AGAIN");
-        playAgain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    createStartPanel(startPanelStart);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
+//        JButton playAgain = new JButton("PLAY AGAIN");
+//        playAgain.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                    createStartPanel(startPanelStart);
+//            }
+//        });
 
         panelEnd.add(playAgain, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(100, 10, 10, 10), 0, 0));
         panelEnd.add(tankWin, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 150, 10), 0, 0));
@@ -93,8 +101,8 @@ public class ActionField extends JPanel {
         jMenu.add(t34);
         jMenu.addSeparator();
         jMenu.add(tiger);
-//        jMenu.addSeparator();
-//        jMenu.add(playAgain);
+        jMenu.addSeparator();
+        jMenu.add(playAgain);
         jMenuBar.add(jMenu);
 
         frame.setJMenuBar(jMenuBar);
@@ -203,7 +211,8 @@ public class ActionField extends JPanel {
                 destroyTheTarget(agressor, defender);
                 tankWin.setText("TIGER WIN");
                 createEndPanel(panelEnd, frame);
-                isRunDefender = false;
+                isRunAgressor = false;
+                defenderDestroy = true;
 //                break;
             }
             if (isRunDefender) {
@@ -212,6 +221,7 @@ public class ActionField extends JPanel {
                 tankWin.setText("T34 WIN");
                 createEndPanel(panelEnd, frame);
                 isRunDefender = false;
+                agressorDestroy = true;
 //                break;
             }
         }
@@ -559,13 +569,26 @@ public class ActionField extends JPanel {
         frame.setLocationRelativeTo(null);
     }
 
-    private void createStartPanel(PanelStart startPanelStart) throws Exception {
+    private void createStartPanel(PanelStart startPanelStart) {
+        System.out.println("create");
         frame.setSize(new Dimension(700, 445));
         panelEnd.setVisible(false);
         startPanelStart.setVisible(true);
         frame.setVisible(true);
-//        battleField = new BattleField();
-        new ActionField();
+
+        battleField = new BattleField();
+        if (agressorDestroy){
+            agressor = new Tiger(448, 256, Direction.DOWN, battleField, 1);
+        }
+        if (defenderDestroy){
+            defender = new T34Defender(192, 256, Direction.DOWN, battleField);
+        }
+
+
+
+        isRunAgressor = false;
+        isRunDefender = false;
+//        new ActionField();
 //        actionField.runTheGame();
 //        runTheGame();
     }

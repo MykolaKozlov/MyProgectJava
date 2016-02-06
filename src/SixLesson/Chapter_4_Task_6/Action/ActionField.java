@@ -36,8 +36,8 @@ public class ActionField extends JPanel {
 
     public ActionField() throws Exception {
         battleField = new BattleField();
-        defender = new T34Defender(192, 256, Direction.DOWN, battleField);
-        agressor = new Tiger(448, 256, Direction.DOWN, battleField, 1);
+        defender = new T34Defender(0, 0, Direction.DOWN, battleField);
+        agressor = new Tiger(512, 512, Direction.DOWN, battleField, 1);
         bullet = new Bullet(-100, -100, Direction.STOP);
 
         frame = new JFrame("BATTLECITY");
@@ -75,7 +75,11 @@ public class ActionField extends JPanel {
             }
         });
 
-        JMenuItem playAgain = new JMenuItem("PLAY");
+        tankWin = new JLabel();
+        tankWin.setForeground(Color.WHITE);
+        tankWin.setFont(new Font("ARIAL", Font.BOLD, 50));
+
+        JButton playAgain = new JButton("PLAY AGAIN");
         playAgain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,35 +87,19 @@ public class ActionField extends JPanel {
             }
         });
 
-        tankWin = new JLabel();
-        tankWin.setForeground(Color.WHITE);
-        tankWin.setFont(new Font("ARIAL", Font.BOLD, 50));
-
-//        JButton playAgain = new JButton("PLAY AGAIN");
-//        playAgain.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                    createStartPanel(startPanelStart);
-//            }
-//        });
-
         panelEnd.add(playAgain, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(100, 10, 10, 10), 0, 0));
         panelEnd.add(tankWin, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 150, 10), 0, 0));
 
         jMenu.add(t34);
         jMenu.addSeparator();
         jMenu.add(tiger);
-        jMenu.addSeparator();
-        jMenu.add(playAgain);
         jMenuBar.add(jMenu);
 
         frame.setJMenuBar(jMenuBar);
-        frame.add(this);
         frame.add(startPanelStart);
 
         frame.setResizable(false);
         frame.pack();
-        setVisible(false);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
@@ -203,9 +191,8 @@ public class ActionField extends JPanel {
 //        if findTheTarget(null) - search Eagle;
 //        if findTheTarget(tank) - search Tank;
         while (true) {
-            Thread.sleep(1000);
-            System.out.println(isRunAgressor);
-            System.out.println(isRunDefender);
+            Thread.sleep(500);
+            System.out.println("");
             if (isRunAgressor) {
                 findTheTarget(defender);
                 destroyTheTarget(agressor, defender);
@@ -319,15 +306,21 @@ public class ActionField extends JPanel {
 
         if (xtank == targetX) {
             for (int y = ytank; y < targetY; y++) {
+
+                actionTurnDown(tank);
+                actionFire(tank);
+
                 if (battleField.scanQuadrant(y + 1, xtank) instanceof Rock || battleField.scanQuadrant(y + 1, xtank) instanceof Brick || battleField.scanQuadrant(y + 1, xtank) instanceof Eagle) {
                     actionTurnDown(tank);
                     actionFire(tank);
                     return;
                 }
             }
-        }
+        } else if (ytank == targetY) {
 
-        if (ytank == targetY) {
+            actionTurnRight(tank);
+            actionFire(tank);
+
             for (int x = xtank; x < targetX; x++) {
                 if (battleField.scanQuadrant(ytank, x + 1) instanceof Rock || battleField.scanQuadrant(ytank, x + 1) instanceof Brick || battleField.scanQuadrant(ytank, x + 1) instanceof Eagle) {
                     actionTurnRight(tank);
@@ -335,9 +328,7 @@ public class ActionField extends JPanel {
                     return;
                 }
             }
-        }
-
-        if (battleField.scanQuadrant(ytank, xtank + 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank + 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank + 1) instanceof Eagle) {
+        } else if (battleField.scanQuadrant(ytank, xtank + 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank + 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank + 1) instanceof Eagle) {
             actionTurnRight(tank);
             actionFire(tank);
             actionMoveRight(tank);
@@ -361,6 +352,10 @@ public class ActionField extends JPanel {
         int xtank = tank.getX() / cellSize;
 
         if (xtank == targetX) {
+
+            actionTurnDown(tank);
+            actionFire(tank);
+
             for (int y = ytank; y < targetY; y++) {
                 if (battleField.scanQuadrant(y + 1, xtank) instanceof Rock || battleField.scanQuadrant(y + 1, xtank) instanceof Brick || battleField.scanQuadrant(y + 1, xtank) instanceof Eagle) {
                     actionTurnDown(tank);
@@ -368,9 +363,11 @@ public class ActionField extends JPanel {
                     return;
                 }
             }
-        }
+        } else if (ytank == targetY) {
 
-        if (ytank == targetY) {
+            actionTurnLeft(tank);
+            actionFire(tank);
+
             for (int x = xtank; x > targetX; x--) {
                 if (battleField.scanQuadrant(ytank, x - 1) instanceof Rock || battleField.scanQuadrant(ytank, x - 1) instanceof Brick || battleField.scanQuadrant(ytank, x - 1) instanceof Eagle) {
                     actionTurnLeft(tank);
@@ -380,7 +377,7 @@ public class ActionField extends JPanel {
             }
         }
 
-        if (battleField.scanQuadrant(ytank, xtank - 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank - 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank - 1) instanceof Eagle) {
+        else if (battleField.scanQuadrant(ytank, xtank - 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank - 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank - 1) instanceof Eagle) {
             actionTurnLeft(tank);
             actionFire(tank);
             actionMoveLeft(tank);
@@ -404,6 +401,10 @@ public class ActionField extends JPanel {
         int xtank = tank.getX() / cellSize;
 
         if (xtank == targetX) {
+
+            actionTurnUp(tank);
+            actionFire(tank);
+
             for (int y = ytank; y > targetY; y--) {
                 if (battleField.scanQuadrant(y - 1, xtank) instanceof Rock || battleField.scanQuadrant(y - 1, xtank) instanceof Brick || battleField.scanQuadrant(y - 1, xtank) instanceof Eagle) {
                     actionTurnUp(tank);
@@ -411,9 +412,11 @@ public class ActionField extends JPanel {
                     return;
                 }
             }
-        }
+        } else if (ytank == targetY) {
 
-        if (ytank == targetY) {
+            actionTurnLeft(tank);
+            actionFire(tank);
+
             for (int x = xtank; x > targetX; x--) {
                 if (battleField.scanQuadrant(ytank, x - 1) instanceof Rock || battleField.scanQuadrant(ytank, x - 1) instanceof Brick || battleField.scanQuadrant(ytank, x - 1) instanceof Eagle) {
                     actionTurnLeft(tank);
@@ -423,7 +426,7 @@ public class ActionField extends JPanel {
             }
         }
 
-        if (battleField.scanQuadrant(ytank, xtank - 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank - 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank - 1) instanceof Eagle) {
+        else if (battleField.scanQuadrant(ytank, xtank - 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank - 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank - 1) instanceof Eagle) {
             actionTurnLeft(tank);
             actionFire(tank);
             actionMoveLeft(tank);
@@ -447,6 +450,10 @@ public class ActionField extends JPanel {
         int xtank = tank.getX() / cellSize;
 
         if (xtank == targetX) {
+
+            actionTurnUp(tank);
+            actionFire(tank);
+
             for (int y = ytank; y > targetY; y--) {
                 if (battleField.scanQuadrant(y - 1, xtank) instanceof Rock || battleField.scanQuadrant(y - 1, xtank) instanceof Brick || battleField.scanQuadrant(y - 1, xtank) instanceof Eagle) {
                     actionTurnUp(tank);
@@ -454,9 +461,11 @@ public class ActionField extends JPanel {
                     return;
                 }
             }
-        }
+        } else if (ytank == targetY) {
 
-        if (ytank == targetY) {
+            actionTurnRight(tank);
+            actionFire(tank);
+
             for (int x = xtank; x < targetX; x++) {
                 if (battleField.scanQuadrant(ytank, x + 1) instanceof Rock || battleField.scanQuadrant(ytank, x + 1) instanceof Brick || battleField.scanQuadrant(ytank, x + 1) instanceof Eagle) {
                     actionTurnRight(tank);
@@ -466,7 +475,7 @@ public class ActionField extends JPanel {
             }
         }
 
-        if (battleField.scanQuadrant(ytank, xtank + 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank + 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank + 1) instanceof Eagle) {
+        else if (battleField.scanQuadrant(ytank, xtank + 1) instanceof Rock || battleField.scanQuadrant(ytank, xtank + 1) instanceof Brick || battleField.scanQuadrant(ytank, xtank + 1) instanceof Eagle) {
             actionTurnRight(tank);
             actionFire(tank);
             actionMoveRight(tank);
@@ -554,15 +563,15 @@ public class ActionField extends JPanel {
     }
 
     private void createGamePanel(PanelStart startPanelStart, JFrame frame) {
-        startPanelStart.setVisible(false);
-        setVisible(true);
+        frame.remove(startPanelStart);
+        frame.add(this);
         frame.setPreferredSize(new Dimension(battleField.getBF_WIDTH() + 6, battleField.getBF_HEIGHT() + 52));
         frame.pack();
         frame.setLocationRelativeTo(null);
     }
 
     private void createEndPanel(PanelEnd panelEnd, JFrame frame) {
-        setVisible(false);
+        frame.remove(this);
         frame.add(panelEnd);
         frame.setPreferredSize(new Dimension(726, 457));
         frame.pack();
@@ -570,27 +579,19 @@ public class ActionField extends JPanel {
     }
 
     private void createStartPanel(PanelStart startPanelStart) {
-        System.out.println("create");
-        frame.setSize(new Dimension(700, 445));
-        panelEnd.setVisible(false);
-        startPanelStart.setVisible(true);
-        frame.setVisible(true);
+        frame.remove(panelEnd);
+        frame.add(startPanelStart);
+        frame.setPreferredSize(new Dimension(700, 445));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
 
         battleField = new BattleField();
-        if (agressorDestroy){
-            agressor = new Tiger(448, 256, Direction.DOWN, battleField, 1);
+        if (agressorDestroy) {
+            agressor = new Tiger(0, 0, Direction.DOWN, battleField, 1);
         }
-        if (defenderDestroy){
+        if (defenderDestroy) {
             defender = new T34Defender(192, 256, Direction.DOWN, battleField);
         }
-
-
-
-        isRunAgressor = false;
-        isRunDefender = false;
-//        new ActionField();
-//        actionField.runTheGame();
-//        runTheGame();
     }
 
     @Override

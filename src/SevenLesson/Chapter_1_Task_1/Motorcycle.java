@@ -2,7 +2,8 @@ package SevenLesson.Chapter_1_Task_1;
 
 public class Motorcycle {
 
-    private MotorcycleModel motorcycleModel;
+    private String brand;
+    private String model;
     private MotorcycleColour motorcycleColour;
     private int price;
 
@@ -10,12 +11,20 @@ public class Motorcycle {
 
     }
 
-    public MotorcycleModel getMotorcycleModel() {
-        return motorcycleModel;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMotorcycleModel(MotorcycleModel motorcycleModel) {
-        this.motorcycleModel = motorcycleModel;
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public MotorcycleColour getMotorcycleColour() {
@@ -32,5 +41,10 @@ public class Motorcycle {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "BRAND: " + getBrand() + "; MODEL: " + getModel() + "; COLOUR: " + getMotorcycleColour() + "; PRICE: " + Integer.toString(getPrice()) + ";";
     }
 }

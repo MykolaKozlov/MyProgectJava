@@ -11,6 +11,10 @@ public class ServiceRepository<T extends Service> {
 
     }
 
+    public List<T> getBox() {
+        return box;
+    }
+
     public void add(T item) {
         box.add(item);
     }

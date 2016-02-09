@@ -11,10 +11,12 @@ import static org.junit.Assert.*;
 public class ServiceRepositoryTest {
 
     private ServiceRepository serviceRepository;
+    private TestRepo testRepo;
 
     @Before
     public void init() {
         serviceRepository = new ServiceRepository();
+        testRepo = new TestRepo();
     }
 
     @Test
@@ -24,25 +26,22 @@ public class ServiceRepositoryTest {
 
     @Test
     public void testAdd() {
-        SevenLesson.Chapter_2_Task_2.Test test = new SevenLesson.Chapter_2_Task_2.Test();
-        serviceRepository.add(test);
+        serviceRepository.add(testRepo);
         assertEquals(serviceRepository.getBox().size(), 1);
     }
 
     @Test
     public void testRemoveTrue() {
-        SevenLesson.Chapter_2_Task_2.Test test = new SevenLesson.Chapter_2_Task_2.Test();
-        serviceRepository.add(test);
-        serviceRepository.remove(test);
-        assertFalse(serviceRepository.getBox().contains(test));
+        serviceRepository.add(testRepo);
+        serviceRepository.remove(testRepo);
+        assertFalse(serviceRepository.getBox().contains(testRepo));
     }
 
     @Test
     public void testRemoveFalse() {
-        SevenLesson.Chapter_2_Task_2.Test test = new SevenLesson.Chapter_2_Task_2.Test();
-        SevenLesson.Chapter_2_Task_2.Test test1 = new SevenLesson.Chapter_2_Task_2.Test();
-        serviceRepository.add(test);
-        serviceRepository.remove(test1);
-        assertTrue(serviceRepository.getBox().contains(test));
+        TestRepo testRepo1 = new TestRepo();
+        serviceRepository.add(testRepo);
+        serviceRepository.remove(testRepo1);
+        assertTrue(serviceRepository.getBox().contains(testRepo));
     }
 }

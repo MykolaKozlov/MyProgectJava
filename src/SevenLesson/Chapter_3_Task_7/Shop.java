@@ -177,8 +177,8 @@ public class Shop {
                 str[2] = findDayOnPurchaseArchive(i).getMotorcycle().getMotorcycleBrand().toString();
                 str[3] = Integer.toString((int) findDayOnPurchaseArchive(i).getPrice());
                 str[4] = Integer.toString(findDayOnPurchaseArchive(i).getQuantity());
-                str[5] = discount()[0];
-                str[6] = discount()[1];
+                str[5] = discount(money)[0];
+                str[6] = discount(money)[1];
 
                 transactions += i;
                 purchases += findDayOnPurchaseArchive(i).getQuantity();
@@ -187,7 +187,7 @@ public class Shop {
         return str;
     }
 
-    public String[] discount() {
+    public String[] discount(int money) {
         String[] sum = new String[2];
         if (money > discountSum) {
             sum[0] = "10%";

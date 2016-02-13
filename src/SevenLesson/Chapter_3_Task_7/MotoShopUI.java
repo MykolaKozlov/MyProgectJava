@@ -70,7 +70,6 @@ public class MotoShopUI extends JWindow {
             public void actionPerformed(ActionEvent e) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
                 shop.byMotorcycle(articleTextField.getText(), quantity, nameTextField.getText());
-//                shop.transactionsDuringTheDay();
                 shopTableModel.addDate(shop.transactionsDuringTheDay());
                 jTable.updateUI();
                 panelTable.setVisible(true);

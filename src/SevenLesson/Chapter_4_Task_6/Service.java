@@ -1,4 +1,4 @@
-package SevenLesson;
+package SevenLesson.Chapter_4_Task_6;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -37,7 +37,14 @@ public class InitClass<T> {
 
         Class[] parametrs = new Class[list.size()];
         for (int i = 0; i < list.size(); i++) {
-            parametrs[i] = list.get(i).getClass();
+            parametrs[i] = (Class) list.get(i).getClass();
+            if (parametrs[i] == Integer.class) {
+                parametrs[i] = Integer.TYPE;
+            } else if (parametrs[i] == Double.class) {
+                parametrs[i] = Double.TYPE;
+            } else if (parametrs[i] == Long.class) {
+                parametrs[i] = Long.TYPE;
+            }
         }
 
         Constructor aConstrct = c.getConstructor(parametrs);

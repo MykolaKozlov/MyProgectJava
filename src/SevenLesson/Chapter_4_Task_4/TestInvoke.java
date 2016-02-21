@@ -3,10 +3,10 @@ package SevenLesson.Chapter_4_Task_4;
 public class TestInvoke {
 
     private String name;
-    private Integer age;
+    private int age;
     private String address;
 
-    public TestInvoke(String name, Integer age, String address) {
+    public TestInvoke(String name, int age, String address) {
         this.name = name;
         this.age = age;
         this.address = address;
@@ -20,11 +20,11 @@ public class TestInvoke {
         this.name = name;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

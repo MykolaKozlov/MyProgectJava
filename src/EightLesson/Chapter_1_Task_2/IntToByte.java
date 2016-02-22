@@ -1,4 +1,4 @@
-package EightLesson.Chapter_1_Task_;
+package EightLesson.Chapter_1_Task_2;
 
 public class IntToByte {
 

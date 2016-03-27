@@ -20,19 +20,13 @@ public class ActionField extends JPanel {
     private Tank defender;
     private Tank agressor;
     private Bullet bullet;
-    private int[][] numberBattleFiel;
-    private Deque<Action> way;
-
-
-    private int targetX = 0;
-    private int targetY = 0;
 
     private boolean isRunAgressor = false;
     private boolean isRunDefender = false;
     private boolean agressorDestroy = false;
     private boolean defenderDestroy = false;
 
-    private boolean findTarget = false;
+//    private boolean findTarget = false;
 
 
     private PanelEnd panelEnd;
@@ -41,12 +35,9 @@ public class ActionField extends JPanel {
 
     public ActionField() throws Exception {
         battleField = new BattleField();
-        defender = new T34Defender(512, 0, Direction.DOWN, battleField);
-        agressor = new Tiger(512, 512, Direction.DOWN, battleField, 1);
+        defender = new T34Defender(0, 0, Direction.DOWN, battleField);
+        agressor = new Tiger(512, 0, Direction.DOWN, battleField, 0);
         bullet = new Bullet(-100, -100, Direction.STOP);
-
-        numberBattleFiel = new int[battleField.getyLength()][battleField.getxLength()];
-        way = new ArrayDeque<>();
 
         frame = new JFrame("BATTLECITY");
         setSize(700, 700);
@@ -195,251 +186,93 @@ public class ActionField extends JPanel {
         Thread.sleep(bullet.getSpeed());
     }
 
-    private void checkBattleFieldObject(String[][] object) {
-//        -1 - CapBrick, Brick, Eagle and Rock;
-//        -2 - Water
-        for (int i = 0; i < object.length; i++) {
-            for (int j = 0; j < object[i].length; j++) {
-                if (object[i][j] == " " || object[i][j] == "B" || object[i][j] == "E" || object[i][j] == "R") {
-                    numberBattleFiel[i][j] = -1;
-                } else {
-                    numberBattleFiel[i][j] = -2;
-                }
-            }
+
+    private void checkObgectForFire(int x, int y, Tank tank, Tank target) throws Exception {
+        System.out.println("X" + target.getX());
+        System.out.println("Y" + target.getY());
+        if (this.battleField.scanQuadrant(y, x) instanceof Brick || this.battleField.scanQuadrant(y, x) instanceof Rock || this.battleField.scanQuadrant(y, x) instanceof Eagle || (target.getX() / 64 == x && target.getY() / 64 == y)) {
+            processFire(tank.fire());
         }
     }
-
-    public void printMass(int[][] battleField) {
-        for (int i = 0; i < battleField.length; i++) {
-            for (int j = 0; j < battleField[i].length; j++) {
-                System.out.print(battleField[i][j] + "    ");
-            }
-            System.out.println();
-        }
-    }
-
-    public void runWave(int[][] battleField, Tank tank) {
-        battleField[tank.getY() / 64][tank.getX() / 64] = 0;
-        int position = 0;
-        while (position < 100) {
-            for (int i = 0; i < battleField.length; i++) {
-                for (int j = 0; j < battleField[i].length; j++) {
-                    if (battleField[i][j] == position) {
-                        checkPosition(j, i, battleField);
-                    }
-                }
-            }
-            position++;
-        }
-    }
-
-    public void checkPosition(int x, int y, int[][] battleField) {
-        int position = battleField[y][x];
-        checkUp(x, y, position, battleField);
-        checkRight(x, y, position, battleField);
-        checkDown(x, y, position, battleField);
-        checkLeft(x, y, position, battleField);
-    }
-
-
-    private void checkUp(int x, int y, int position, int[][] battleField) {
-        if (y != 0) {
-            if (battleField[y - 1][x] == -1) {
-                battleField[y - 1][x] = position + 1;
-            }
-        }
-    }
-
-    private void checkRight(int x, int y, int position, int[][] battleField) {
-        if (x != 8) {
-            if (battleField[y][x + 1] == -1) {
-                battleField[y][x + 1] = position + 1;
-            }
-        }
-    }
-
-    private void checkDown(int x, int y, int position, int[][] battleField) {
-        if (y != 8) {
-            if (battleField[y + 1][x] == -1) {
-                battleField[y + 1][x] = position + 1;
-            }
-        }
-    }
-
-    private void checkLeft(int x, int y, int position, int[][] battleField) {
-        if (x != 0) {
-            if (battleField[y][x - 1] == -1) {
-                battleField[y][x - 1] = position + 1;
-            }
-        }
-    }
-
-
-    public void buildWayToTheTarget(int x, int y, int[][] battleField) {
-        int position = battleField[y][x];
-        scanUp(x, y, position, battleField);
-        scanRight(x, y, position, battleField);
-        scanDown(x, y, position, battleField);
-        scanLeft(x, y, position, battleField);
-    }
-
-    private void scanUp(int x, int y, int position, int[][] battleField) {
-        if (y != 0) {
-            if (battleField[y - 1][x] == position - 1 && findTarget == false) {
-                way.offerFirst(Action.MOVEDOWN);
-                buildWayToTheTarget(x, y - 1, battleField);
-            }
-            if (battleField[y - 1][x] == 0) {
-                findTarget = true;
-            }
-        }
-    }
-
-    private void scanRight(int x, int y, int position, int[][] battleField) {
-        if (x != 8) {
-            if (battleField[y][x + 1] == position - 1 && findTarget == false) {
-                way.offerFirst(Action.MOVELEFT);
-                buildWayToTheTarget(x + 1, y, battleField);
-            }
-            if (battleField[y][x + 1] == 0) {
-                findTarget = true;
-            }
-        }
-    }
-
-    private void scanDown(int x, int y, int position, int[][] battleField) {
-        if (y != 8) {
-            if (battleField[y + 1][x] == position - 1 && findTarget == false) {
-                way.offerFirst(Action.MOVEUP);
-                buildWayToTheTarget(x, y + 1, battleField);
-            }
-            if (battleField[y + 1][x] == 0) {
-                findTarget = true;
-            }
-        }
-    }
-
-    private void scanLeft(int x, int y, int position, int[][] battleField) {
-        if (x != 0) {
-            if (battleField[y][x - 1] == position - 1 && findTarget == false) {
-                way.offerFirst(Action.MOVERIGHT);
-                buildWayToTheTarget(x - 1, y, battleField);
-            }
-            if (battleField[y][x - 1] == 0) {
-                findTarget = true;
-            }
-        }
-    }
-
-//    private void checkObgectForFire(int x, int y) {
-//        if (this.battleField.scanQuadrant(y, x) instanceof Brick || this.battleField.scanQuadrant(y, x) instanceof Rock || this.battleField.scanQuadrant(y, x) instanceof Eagle) {
-//            way.offerLast(Action.FIRE);
-//        }
-//    }
-
-
-    public void findTheTarget() {
-        for (int i = 0; i < battleField.getAbstractBattleFieldObject().length; i++) {
-            for (int j = 0; j < battleField.getAbstractBattleFieldObject()[i].length; j++) {
-                AbstractBattleFieldObject bfObject = battleField.scanQuadrant(i, j);
-                if (bfObject instanceof Eagle) {
-                    targetY = i;
-                    targetX = j;
-                    break;
-                }
-            }
-        }
-    }
-
 
     public void runTheGame() throws Exception {
-        checkBattleFieldObject(battleField.getTestBattleField());
-        runWave(numberBattleFiel, defender);
-        printMass(numberBattleFiel);
-        findTheTarget();
+        FindTarget defenderAttack = new FindTarget();
+        FindTarget agressorAttack = new FindTarget();
 
-        buildWayToTheTarget(targetX, targetY, numberBattleFiel);
-        System.out.println(Arrays.toString(way.toArray()));
 
-        while (!way.isEmpty()) {
-            processAction(way.poll(), defender);
+        while (true) {
+            Thread.sleep(500);
+            System.out.println(defender.isDestroyed());
+
+            if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunDefender) {
+
+                defenderAttack.setFindTarget(false);
+                defenderAttack.runWave(battleField.getAbstractBattleFieldObject(), defenderAttack.getNumberBattleFiel(), defender, agressor);
+                processAction(defenderAttack.getWay().poll(), defender, agressor);
+
+            }
+            if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunDefender) {
+                agressorAttack.setFindTarget(false);
+                agressorAttack.runWave(battleField.getAbstractBattleFieldObject(), agressorAttack.getNumberBattleFiel(), agressor, "Eagle");
+                processAction(agressorAttack.getWay().poll(), agressor, defender);
+
+            }
+
+
+            if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunAgressor) {
+                agressorAttack.setFindTarget(false);
+                agressorAttack.runWave(battleField.getAbstractBattleFieldObject(), agressorAttack.getNumberBattleFiel(), agressor, defender);
+                processAction(agressorAttack.getWay().poll(), agressor, defender);
+            }
+            if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunAgressor) {
+
+                defenderAttack.setFindTarget(false);
+                defenderAttack.runWave(battleField.getAbstractBattleFieldObject(), defenderAttack.getNumberBattleFiel(), defender, agressor);
+                processAction(defenderAttack.getWay().poll(), defender, agressor);
+            }
+
+
+            if (defender.isDestroyed() && (isRunDefender || isRunAgressor)) {
+                tankWin.setText("TIGER WIN");
+                createEndPanel(panelEnd, frame);
+                isRunDefender = false;
+                isRunAgressor = false;
+                defenderDestroy = true;
+
+            }
+            if (agressor.isDestroyed() && (isRunAgressor || isRunDefender)) {
+                tankWin.setText("T34 WIN");
+                createEndPanel(panelEnd, frame);
+                isRunAgressor = false;
+                isRunDefender = false;
+                agressorDestroy = true;
+            }
         }
-
-
-//        while (true) {
-//            Thread.sleep(500);
-//            System.out.println("");
-//            if (isRunAgressor) {
-//                findTheTarget(defender);
-//                destroyTheTarget(agressor, defender);
-//                tankWin.setText("TIGER WIN");
-//                createEndPanel(panelEnd, frame);
-//                isRunAgressor = false;
-//                defenderDestroy = true;
-//
-//            }
-//            if (isRunDefender) {
-//                findTheTarget(agressor);
-//                destroyTheTarget(defender, agressor);
-//                tankWin.setText("T34 WIN");
-//                createEndPanel(panelEnd, frame);
-//                isRunDefender = false;
-//                agressorDestroy = true;
-//
-//            }
-//        }
 
     }
 
-//    public void findTheTarget(Tank tank) {
-//        if (tank == null) {
-//            for (int i = 0; i < battleField.getAbstractBattleFieldObject().length; i++) {
-//                for (int j = 0; j < battleField.getAbstractBattleFieldObject()[i].length; j++) {
-//                    AbstractBattleFieldObject bfObject = battleField.scanQuadrant(i, j);
-//                    if (bfObject instanceof Eagle) {
-//                        targetY = i;
-//                        targetX = j;
-//                        break;
-//                    }
-//                }
-//            }
-//        } else {
-//            targetX = tank.getX() / cellSize;
-//            targetY = tank.getY() / cellSize;
-//        }
-//    }
-
-
-    private void processAction(Action action, Tank tank) throws Exception {
+    private void processAction(Action action, Tank tank, Tank target) throws Exception {
         if (action == Action.FIRE) {
             processFire(tank.fire());
         } else if (action == Action.MOVEUP) {
             tank.turn(Direction.UP);
             processTurn(tank);
-
-            processFire(tank.fire());
-
+            checkObgectForFire(tank.getX() / 64, tank.getY() / 64 - 1, tank, target);
             processMove(tank);
         } else if (action == Action.MOVEDOWN) {
             tank.turn(Direction.DOWN);
             processTurn(tank);
-
-            processFire(tank.fire());
-
+            checkObgectForFire(tank.getX() / 64, tank.getY() / 64 + 1, tank, target);
             processMove(tank);
         } else if (action == Action.MOVELEFT) {
             tank.turn(Direction.LEFT);
             processTurn(tank);
-
-            processFire(tank.fire());
-
+            checkObgectForFire(tank.getX() / 64 - 1, tank.getY() / 64, tank, target);
             processMove(tank);
         } else if (action == Action.MOVERIGHT) {
             tank.turn(Direction.RIGHT);
             processTurn(tank);
-
-            processFire(tank.fire());
-
+            checkObgectForFire(tank.getX() / 64 + 1, tank.getY() / 64, tank, target);
             processMove(tank);
         }
     }
@@ -514,11 +347,14 @@ public class ActionField extends JPanel {
         frame.setLocationRelativeTo(null);
 
         battleField = new BattleField();
+
         if (agressorDestroy) {
-            agressor = new Tiger(0, 0, Direction.DOWN, battleField, 1);
+            defender = new T34Defender(0, 0, Direction.DOWN, battleField);
+            agressor = new Tiger(512, 0, Direction.DOWN, battleField, 0);
         }
         if (defenderDestroy) {
-            defender = new T34Defender(192, 256, Direction.DOWN, battleField);
+            defender = new T34Defender(0, 0, Direction.DOWN, battleField);
+            agressor = new Tiger(512, 0, Direction.DOWN, battleField, 0);
         }
     }
 

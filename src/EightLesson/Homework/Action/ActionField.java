@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.*;
 
 public class ActionField extends JPanel {
@@ -20,6 +21,10 @@ public class ActionField extends JPanel {
     private Tank defender;
     private Tank agressor;
     private Bullet bullet;
+
+    private File defenderActions;
+    private File agressorActions;
+    private int gameCounter = 1;
 
     private boolean isRunAgressor = false;
     private boolean isRunDefender = false;
@@ -34,6 +39,8 @@ public class ActionField extends JPanel {
     private JLabel tankWin;
 
     public ActionField() throws Exception {
+        defenderActions = new File("D:\\MyProgectJava\\Catalog\\EightLesson\\Homework\\Task_2\\defenderActions.txt");
+        agressorActions = new File("D:\\MyProgectJava\\Catalog\\EightLesson\\Homework\\Task_2\\agressorActions.txt");
         battleField = new BattleField();
         defender = new T34Defender(0, 0, Direction.DOWN, battleField);
         agressor = new Tiger(512, 0, Direction.DOWN, battleField, 0);
@@ -58,6 +65,7 @@ public class ActionField extends JPanel {
         t34.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                writeGameNumber();
                 isRunDefender = true;
                 createGamePanel(startPanelStart, frame);
 
@@ -68,6 +76,7 @@ public class ActionField extends JPanel {
         tiger.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                writeGameNumber();
                 isRunAgressor = true;
                 createGamePanel(startPanelStart, frame);
 
@@ -188,8 +197,6 @@ public class ActionField extends JPanel {
 
 
     private void checkObgectForFire(int x, int y, Tank tank, Tank target) throws Exception {
-        System.out.println("X" + target.getX());
-        System.out.println("Y" + target.getY());
         if (this.battleField.scanQuadrant(y, x) instanceof Brick || this.battleField.scanQuadrant(y, x) instanceof Rock || this.battleField.scanQuadrant(y, x) instanceof Eagle || (target.getX() / 64 == x && target.getY() / 64 == y)) {
             processFire(tank.fire());
         }
@@ -198,11 +205,12 @@ public class ActionField extends JPanel {
     public void runTheGame() throws Exception {
         FindTarget defenderAttack = new FindTarget();
         FindTarget agressorAttack = new FindTarget();
+        defenderActions.delete();
+        agressorActions.delete();
 
 
         while (true) {
-            Thread.sleep(500);
-            System.out.println(defender.isDestroyed());
+            Thread.sleep(10);
 
             if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunDefender) {
 
@@ -252,6 +260,7 @@ public class ActionField extends JPanel {
     }
 
     private void processAction(Action action, Tank tank, Tank target) throws Exception {
+        writeAction(action, tank);
         if (action == Action.FIRE) {
             processFire(tank.fire());
         } else if (action == Action.MOVEUP) {
@@ -275,6 +284,42 @@ public class ActionField extends JPanel {
             checkObgectForFire(tank.getX() / 64 + 1, tank.getY() / 64, tank, target);
             processMove(tank);
         }
+    }
+
+    private void writeAction(Action action, Tank tank) {
+        String str = action.toString();
+
+        try (BufferedWriter writeDefender = new BufferedWriter(new FileWriter(defenderActions, true));
+             BufferedWriter writeAgressor = new BufferedWriter(new FileWriter(agressorActions, true))) {
+
+            if (tank instanceof T34Defender) {
+                writeDefender.newLine();
+                writeDefender.write(str);
+            } else {
+                writeAgressor.newLine();
+                writeAgressor.write(str);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeGameNumber() {
+        String str = "GAME №" + gameCounter;
+
+        try (BufferedWriter writeDefender = new BufferedWriter(new FileWriter(defenderActions, true));
+             BufferedWriter writeAgressor = new BufferedWriter(new FileWriter(agressorActions, true))) {
+            writeDefender.newLine();
+            writeDefender.write(str);
+            writeAgressor.newLine();
+            writeAgressor.write(str);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        gameCounter++;
     }
 
     private boolean processInterception() {

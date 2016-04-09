@@ -199,6 +199,7 @@ public class ActionField extends JPanel {
     private void checkObgectForFire(int x, int y, Tank tank, Tank target) throws Exception {
         if (this.battleField.scanQuadrant(y, x) instanceof Brick || this.battleField.scanQuadrant(y, x) instanceof Rock || this.battleField.scanQuadrant(y, x) instanceof Eagle || (target.getX() / 64 == x && target.getY() / 64 == y)) {
             processFire(tank.fire());
+            writeAction(Action.FIRE, tank);
         }
     }
 

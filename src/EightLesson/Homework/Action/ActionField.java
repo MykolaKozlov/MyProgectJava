@@ -22,16 +22,13 @@ public class ActionField extends JPanel {
     private Tank agressor;
     private Bullet bullet;
 
-    private File defenderActions;
-    private File agressorActions;
-    private int gameCounter = 1;
+    private File tankActions;
 
     private boolean isRunAgressor = false;
     private boolean isRunDefender = false;
+    private boolean isRunRepite = false;
     private boolean agressorDestroy = false;
     private boolean defenderDestroy = false;
-
-//    private boolean findTarget = false;
 
 
     private PanelEnd panelEnd;
@@ -39,8 +36,8 @@ public class ActionField extends JPanel {
     private JLabel tankWin;
 
     public ActionField() throws Exception {
-        defenderActions = new File("D:\\MyProgectJava\\Catalog\\EightLesson\\Homework\\Task_2\\defenderActions.txt");
-        agressorActions = new File("D:\\MyProgectJava\\Catalog\\EightLesson\\Homework\\Task_2\\agressorActions.txt");
+        tankActions = new File("D:\\MyProgectJava\\Catalog\\EightLesson\\Homework\\Task_2\\tankActions.txt");
+
         battleField = new BattleField();
         defender = new T34Defender(0, 0, Direction.DOWN, battleField);
         agressor = new Tiger(512, 0, Direction.DOWN, battleField, 0);
@@ -65,7 +62,7 @@ public class ActionField extends JPanel {
         t34.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                writeGameNumber();
+                tankActions.delete();
                 isRunDefender = true;
                 createGamePanel(startPanelStart, frame);
 
@@ -76,12 +73,23 @@ public class ActionField extends JPanel {
         tiger.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                writeGameNumber();
+                tankActions.delete();
                 isRunAgressor = true;
                 createGamePanel(startPanelStart, frame);
 
             }
         });
+
+        JMenuItem repite = new JMenuItem("REPITE LAST GAME");
+        repite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isRunRepite = true;
+                createGamePanel(startPanelStart, frame);
+
+            }
+        });
+
 
         tankWin = new JLabel();
         tankWin.setForeground(Color.WHITE);
@@ -101,6 +109,8 @@ public class ActionField extends JPanel {
         jMenu.add(t34);
         jMenu.addSeparator();
         jMenu.add(tiger);
+        jMenu.addSeparator();
+        jMenu.add(repite);
         jMenuBar.add(jMenu);
 
         frame.setJMenuBar(jMenuBar);
@@ -206,9 +216,6 @@ public class ActionField extends JPanel {
     public void runTheGame() throws Exception {
         FindTarget defenderAttack = new FindTarget();
         FindTarget agressorAttack = new FindTarget();
-        defenderActions.delete();
-        agressorActions.delete();
-
 
         while (true) {
             Thread.sleep(10);
@@ -220,6 +227,7 @@ public class ActionField extends JPanel {
                 processAction(defenderAttack.getWay().poll(), defender, agressor);
 
             }
+
             if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunDefender) {
                 agressorAttack.setFindTarget(false);
                 agressorAttack.runWave(battleField.getAbstractBattleFieldObject(), agressorAttack.getNumberBattleFiel(), agressor, "Eagle");
@@ -227,19 +235,18 @@ public class ActionField extends JPanel {
 
             }
 
-
             if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunAgressor) {
                 agressorAttack.setFindTarget(false);
                 agressorAttack.runWave(battleField.getAbstractBattleFieldObject(), agressorAttack.getNumberBattleFiel(), agressor, defender);
                 processAction(agressorAttack.getWay().poll(), agressor, defender);
             }
+
             if (!agressor.isDestroyed() && !defender.isDestroyed() && isRunAgressor) {
 
                 defenderAttack.setFindTarget(false);
                 defenderAttack.runWave(battleField.getAbstractBattleFieldObject(), defenderAttack.getNumberBattleFiel(), defender, agressor);
                 processAction(defenderAttack.getWay().poll(), defender, agressor);
             }
-
 
             if (defender.isDestroyed() && (isRunDefender || isRunAgressor)) {
                 tankWin.setText("TIGER WIN");
@@ -249,6 +256,7 @@ public class ActionField extends JPanel {
                 defenderDestroy = true;
 
             }
+
             if (agressor.isDestroyed() && (isRunAgressor || isRunDefender)) {
                 tankWin.setText("T34 WIN");
                 createEndPanel(panelEnd, frame);
@@ -256,71 +264,121 @@ public class ActionField extends JPanel {
                 isRunDefender = false;
                 agressorDestroy = true;
             }
-        }
 
+            if (isRunRepite) {
+                repiteGame(tankActions);
+                isRunRepite = false;
+                isRunAgressor = true;
+                isRunDefender = true;
+            }
+        }
     }
 
     private void processAction(Action action, Tank tank, Tank target) throws Exception {
-        writeAction(action, tank);
         if (action == Action.FIRE) {
             processFire(tank.fire());
         } else if (action == Action.MOVEUP) {
             tank.turn(Direction.UP);
             processTurn(tank);
+            writeAction(Action.TURNUP, tank);
             checkObgectForFire(tank.getX() / 64, tank.getY() / 64 - 1, tank, target);
+            writeAction(action, tank);
             processMove(tank);
         } else if (action == Action.MOVEDOWN) {
             tank.turn(Direction.DOWN);
             processTurn(tank);
+            writeAction(Action.TURNDOWN, tank);
             checkObgectForFire(tank.getX() / 64, tank.getY() / 64 + 1, tank, target);
+            writeAction(action, tank);
             processMove(tank);
         } else if (action == Action.MOVELEFT) {
             tank.turn(Direction.LEFT);
             processTurn(tank);
+            writeAction(Action.TURNLEFT, tank);
             checkObgectForFire(tank.getX() / 64 - 1, tank.getY() / 64, tank, target);
+            writeAction(action, tank);
             processMove(tank);
         } else if (action == Action.MOVERIGHT) {
             tank.turn(Direction.RIGHT);
             processTurn(tank);
+            writeAction(Action.TURNRIGHT, tank);
             checkObgectForFire(tank.getX() / 64 + 1, tank.getY() / 64, tank, target);
+            writeAction(action, tank);
             processMove(tank);
         }
     }
 
-    private void writeAction(Action action, Tank tank) {
-        String str = action.toString();
+    private void processActionRepite(String action, Tank tank) throws Exception {
+        if (action.equals("FIRE")) {
+            processFire(tank.fire());
+        } else if (action.equals("MOVEUP")) {
+            processMove(tank);
+        } else if (action.equals("MOVEDOWN")) {
+            processMove(tank);
+        } else if (action.equals("MOVELEFT")) {
+            processMove(tank);
+        } else if (action.equals("MOVERIGHT")) {
+            processMove(tank);
+        } else if (action.equals("TURNUP")) {
+            tank.turn(Direction.UP);
+            processTurn(tank);
+        } else if (action.equals("TURNDOWN")) {
+            tank.turn(Direction.DOWN);
+            processTurn(tank);
+        } else if (action.equals("TURNLEFT")) {
+            tank.turn(Direction.LEFT);
+            processTurn(tank);
+        } else if (action.equals("TURNRIGHT")) {
+            tank.turn(Direction.RIGHT);
+            processTurn(tank);
+        }
+    }
 
-        try (BufferedWriter writeDefender = new BufferedWriter(new FileWriter(defenderActions, true));
-             BufferedWriter writeAgressor = new BufferedWriter(new FileWriter(agressorActions, true))) {
 
-            if (tank instanceof T34Defender) {
-                writeDefender.newLine();
-                writeDefender.write(str);
-            } else {
-                writeAgressor.newLine();
-                writeAgressor.write(str);
+    public void repiteGame(File actions) {
+        try (BufferedReader readActions = new BufferedReader(new FileReader(actions))) {
+            String str;
+            String tank;
+            String action;
+            while ((str = readActions.readLine()) != null) {
+                if (str.contains("GAME") || str.equals("")) {
+                    continue;
+                }
+                tank = str.split("_")[0];
+                action = str.split("_")[1];
+
+                if (tank.equals("DEFENDER")) {
+                    processActionRepite(action, defender);
+                } else if (tank.equals("AGRESSOR")) {
+                    processActionRepite(action, agressor);
+                }
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
-    private void writeGameNumber() {
-        String str = "GAME №" + gameCounter;
-
-        try (BufferedWriter writeDefender = new BufferedWriter(new FileWriter(defenderActions, true));
-             BufferedWriter writeAgressor = new BufferedWriter(new FileWriter(agressorActions, true))) {
-            writeDefender.newLine();
-            writeDefender.write(str);
-            writeAgressor.newLine();
-            writeAgressor.write(str);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    private void writeAction(Action action, Tank tank) {
+        String str = action.toString();
+        try (BufferedWriter writeAction = new BufferedWriter(new FileWriter(tankActions, true))) {
+            if (tank instanceof T34Defender) {
+                writeAction.newLine();
+                writeAction.write("DEFENDER_" + str);
+            } else {
+                writeAction.newLine();
+                writeAction.write("AGRESSOR_" + str);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        gameCounter++;
     }
 
     private boolean processInterception() {
